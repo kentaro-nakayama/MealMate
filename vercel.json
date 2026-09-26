@@ -11,7 +11,7 @@
         },
         "backend": {
             "root": "backend",
-            "entrypoint": "main:app"
+            "entrypoint": "debug_app:app"
         }
     },
     "rewrites": [
