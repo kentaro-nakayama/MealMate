@@ -88,12 +88,12 @@ hr {
 }
 
 /* ページ説明 */
-.contents-area>p {
+.contents-area > p {
     margin-bottom: 20px;
 }
 
 @media screen and (max-width: 700px) {
-    .contents-area>p {
+    .contents-area > p {
         margin-bottom: 10px;
     }
 }
@@ -236,7 +236,7 @@ a.btn {
     -webkit-overflow-scrolling: touch;
 }
 
-.selected-ings-container  > * {
+.selected-ings-container > * {
     flex: 0 0 auto;
 
     scroll-snap-align: center;
@@ -488,7 +488,7 @@ textarea {
 
 @media (hover: hover) {
     textarea:hover {
-        border: 2px solid rgb(100, 192, 35)
+        border: 2px solid rgb(100, 192, 35);
     }
 }
 
@@ -560,23 +560,59 @@ textarea:focus {
     color: white;
 }
 
-.chip.cat-1 { color: rgb(96, 165, 66); background: rgba(96, 165, 66, .12); }
-.chip.cat-2 { color: rgb(255, 104, 87); background: rgba(255, 104, 87, .12); }
-.chip.cat-3 { color: rgb(0, 150, 196); background: rgba(0, 195, 255, .18); }
-.chip.cat-4 { color: rgb(199, 120, 20); background: rgba(255, 161, 80, .18); }
-.chip.cat-5 { color: rgb(180, 60, 170); background: rgba(255, 192, 255, .4); }
-.chip.cat-6 { color: rgb(184, 131, 98); background: rgba(184, 131, 98, .15); }
+.chip.cat-1 {
+    color: rgb(96, 165, 66);
+    background: rgba(96, 165, 66, 0.12);
+}
+.chip.cat-2 {
+    color: rgb(255, 104, 87);
+    background: rgba(255, 104, 87, 0.12);
+}
+.chip.cat-3 {
+    color: rgb(0, 150, 196);
+    background: rgba(0, 195, 255, 0.18);
+}
+.chip.cat-4 {
+    color: rgb(199, 120, 20);
+    background: rgba(255, 161, 80, 0.18);
+}
+.chip.cat-5 {
+    color: rgb(180, 60, 170);
+    background: rgba(255, 192, 255, 0.4);
+}
+.chip.cat-6 {
+    color: rgb(184, 131, 98);
+    background: rgba(184, 131, 98, 0.15);
+}
 
-.chip.cat-1.active { background: rgb(96, 165, 66); color: white; }
-.chip.cat-2.active { background: rgb(255, 104, 87); color: white; }
-.chip.cat-3.active { background: rgb(0, 173, 226); color: white; }
-.chip.cat-4.active { background: rgb(224, 140, 40); color: white; }
-.chip.cat-5.active { background: rgb(216, 90, 200); color: white; }
-.chip.cat-6.active { background: rgb(184, 131, 98); color: white; }
+.chip.cat-1.active {
+    background: rgb(96, 165, 66);
+    color: white;
+}
+.chip.cat-2.active {
+    background: rgb(255, 104, 87);
+    color: white;
+}
+.chip.cat-3.active {
+    background: rgb(0, 173, 226);
+    color: white;
+}
+.chip.cat-4.active {
+    background: rgb(224, 140, 40);
+    color: white;
+}
+.chip.cat-5.active {
+    background: rgb(216, 90, 200);
+    color: white;
+}
+.chip.cat-6.active {
+    background: rgb(184, 131, 98);
+    color: white;
+}
 
 @media (hover: hover) {
     .chip:hover {
-        opacity: .8;
+        opacity: 0.8;
     }
 }
 
@@ -608,13 +644,27 @@ textarea:focus {
     flex: none;
 }
 
-.cat-dot.cat-0 { background: rgb(120, 120, 120); }
-.cat-dot.cat-1 { background: rgb(96, 165, 66); }
-.cat-dot.cat-2 { background: rgb(255, 104, 87); }
-.cat-dot.cat-3 { background: rgb(0, 195, 255); }
-.cat-dot.cat-4 { background: rgb(255, 161, 80); }
-.cat-dot.cat-5 { background: rgb(255, 192, 255); }
-.cat-dot.cat-6 { background: rgb(184, 131, 98); }
+.cat-dot.cat-0 {
+    background: rgb(120, 120, 120);
+}
+.cat-dot.cat-1 {
+    background: rgb(96, 165, 66);
+}
+.cat-dot.cat-2 {
+    background: rgb(255, 104, 87);
+}
+.cat-dot.cat-3 {
+    background: rgb(0, 195, 255);
+}
+.cat-dot.cat-4 {
+    background: rgb(255, 161, 80);
+}
+.cat-dot.cat-5 {
+    background: rgb(255, 192, 255);
+}
+.cat-dot.cat-6 {
+    background: rgb(184, 131, 98);
+}
 
 @media screen and (max-width: 1000px) {
     .card-columns-container {
@@ -641,7 +691,7 @@ textarea:focus {
         height: 25px;
     }
 
-    .main>p {
+    .main > p {
         margin-bottom: 20px;
     }
 
@@ -721,7 +771,7 @@ textarea:focus {
     margin-bottom: 0px;
 }
 
-.form-card>div {
+.form-card > div {
     width: 70%;
     margin: 0 auto;
 }
@@ -746,7 +796,7 @@ textarea:focus {
         padding: 20px 0;
     }
 
-    .form-card>div {
+    .form-card > div {
         width: 80%;
     }
 
@@ -796,7 +846,7 @@ textarea:focus {
 }
 
 .yellow .h3-icon {
-    color: #d4b487
+    color: #d4b487;
 }
 
 .blue .h3-icon {
@@ -823,13 +873,16 @@ textarea:focus {
     overflow-y: auto;
 }
 
-
 .recommend-dish-card {
     border: 0.5px solid #93bc5c;
     background-color: #93bc5c10;
     border-radius: 20px;
-    padding: 10px;
-    position: relative;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+}
+
+.recommend-dish-card:last-child {
+    margin-bottom: 0;
 }
 
 .recommend-dish-card a:active {
@@ -844,42 +897,37 @@ textarea:focus {
     }
 }
 
-
-.recommend-dish-card .match-rate {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    font-size: 12px;
-    text-align: center;
-    background-color: #93bc5c;
-    color: white;
-    border-radius: 50%;
-    padding: 10px;
-    margin: auto 0;
+.dish-info-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-.recommend-dish-card .match-rate.mid {
+.match-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1px;
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    background-color: #93bc5c;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.match-badge.mid {
     background-color: #d9a34d;
 }
 
-.recommend-dish-card .match-rate.low {
-    background-color: #b0aca0;
+.match-badge.low {
+    background-color: #c98a72;
 }
 
-.recommend-dish-card .match-rate p {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.recommend-dish-card span {
-    font-size: 12px;
-    margin-left: 4px;
-}
-
-.dish-info {
-    margin-left: 10px;
-    margin-bottom: 40px;
+.match-badge-pct {
+    font-size: 10px;
+    font-weight: 700;
 }
 
 .recommend-dish-card p.lack-ing_list {
@@ -888,8 +936,33 @@ textarea:focus {
     font-weight: 500;
 }
 
+.match-bar-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    background-color: #e7e9e1;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.match-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background-color: #93bc5c;
+    transition: width 0.3s ease;
+}
+
+.match-bar-fill.mid {
+    background-color: #d9a34d;
+}
+
+.match-bar-fill.low {
+    background-color: #c98a72;
+}
+
 a.see-recipe-btn {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     padding: 5px 8px 5px 15px;
     border-radius: 8px;
     font-size: 12px;
@@ -898,10 +971,7 @@ a.see-recipe-btn {
     transition: all 0.2s ease;
     background-color: #93bc5c;
     color: white;
-    width: 120px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+    margin-top: 10px;
 }
 
 .see-recipe-btn-arrow {
@@ -919,7 +989,7 @@ a.see-recipe-btn {
     padding: 20px;
 }
 
-.summary-container>div {
+.summary-container > div {
     border-radius: 20px;
     padding: 20px;
     position: relative;
@@ -993,7 +1063,6 @@ a.see-recipe-btn {
 
     .recommend-section {
         width: 100%;
-
     }
 
     .recommend-dish-container {
@@ -1020,7 +1089,6 @@ input {
 }
 
 @media (hover: hover) {
-
     input:hover,
     select:hover {
         border: 2px solid #93bc5c;
@@ -1044,7 +1112,6 @@ select:focus {
 
 /* メデイアクエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
 @media screen and (max-width: 700px) {
-
     input,
     select {
         width: 100%;
@@ -1063,28 +1130,6 @@ header {
 
 .title-icon {
     width: 240px;
-}
-
-.title-icon-for-mb {
-    display: none;
-    width: 300px;
-}
-
-@media screen and (max-width: 700px) {
-    .title-icon {
-        display: none;
-    }
-
-    .title-icon-for-mb {
-        display: block;
-        width: 100%;
-        max-width: 220px;
-    }
-
-    h1 {
-        flex: 1;
-        min-width: 0;
-    }
 }
 
 .header-row {
@@ -1145,7 +1190,6 @@ h1 {
     }
 }
 
-
 h1 span {
     font-size: 50%;
     margin-left: 20px;
@@ -1188,7 +1232,7 @@ nav a.active {
 @media (hover: hover) {
     nav a:hover {
         background-color: #93bc5c;
-        color: #EFF4E4;
+        color: #eff4e4;
     }
 }
 
@@ -1213,17 +1257,22 @@ nav a.active::after {
 /* 700px以下は画面下部のアイコンタブバーに切り替え */
 @media (max-width: 700px) {
     header {
-        padding: 10px 16px;
+        padding: 10px 12px;
         position: relative;
     }
 
     .header-row {
-        margin-bottom: 12px;
-        padding: 10px 16px;
+        margin-bottom: 4px;
+        padding: 10px 16px 10px 4px;
     }
 
     .title-icon {
-        display: none;
+        width: 180px;
+    }
+
+    h1 {
+        flex: 1;
+        min-width: 0;
     }
 
     .logout-btn {
@@ -1299,7 +1348,6 @@ nav a.active::after {
     border: 3px solid white;
 }
 
-
 .message.success {
     background-color: #93bc5c;
 }
@@ -1307,7 +1355,6 @@ nav a.active::after {
 .message.error {
     background-color: rgb(255, 94, 94);
 }
-
 
 @media screen and (max-width: 800px) {
     .message {
@@ -1440,13 +1487,10 @@ nav a.active::after {
     gap: 10px;
 }
 
-
-.result-card-btn-container>* {
+.result-card-btn-container > * {
     padding: 0;
     flex: 1;
 }
-
-
 
 .result-page .input-area {
     display: flex;

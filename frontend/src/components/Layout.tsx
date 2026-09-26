@@ -3,7 +3,6 @@ import { Outlet, NavLink } from "react-router-dom";
 import Message from './Message.tsx';
 import { logout } from '../api/api.js';
 import TitleIcon from '../img/TitleIcon.svg';
-import TitleIconForMb from '../img/TitleIcon_for_mb.svg';
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +29,6 @@ function Layout() {
                 <div className="header-row">
                     <h1>
                         <img src={TitleIcon} alt="Title Icon" className='title-icon' />
-                        <img src={TitleIconForMb} alt="Title Icon for Mobile" className='title-icon-for-mb' />
                     </h1>
                     <nav>
                         <NavLink to="/home" className={({ isActive }) => isActive ? "active" : ""}>

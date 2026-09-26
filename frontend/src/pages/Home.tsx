@@ -101,29 +101,32 @@ function Home() {
                             {possibleDishList.length === 0 ?
                                 <p>作れる料理が見つかりませんでした</p> :
                                 possibleDishList
-                                    .sort((a, b) => a[2] - b[2]) //不足数で昇順ソート
+                                    .sort((a, b) => b[5] - a[5]) //一致率で降順ソート
                                     .map((possibleDish, index) => (
 
-                                        <div key={index} className='flex recommend-dish-card'>
-                                            <div className={`match-rate ${getMatchRateClass(possibleDish[5])}`}>
-                                                一致率
-                                                <p>{possibleDish[5]}</p>
+                                        <div key={index} className='recommend-dish-card'>
+                                            <div className='dish-info-top'>
+                                                <h4>{possibleDish[0]}</h4>
+                                                <span className={`match-badge ${getMatchRateClass(possibleDish[5])}`}>
+                                                    {possibleDish[5]}<span className='match-badge-pct'>%</span>
+                                                </span>
                                             </div>
-                                            <div>
-                                                <div className='dish-info'>
-                                                    <h4>{possibleDish[0]}</h4>
-                                                    <p className='lack-ing_list'>
-                                                        {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
-                                                    </p>
-                                                </div>
-                                                <a
-                                                    href={`https://www.google.com/search?q=${encodeURIComponent(possibleDish[0] + ' レシピ')}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className='see-recipe-btn'
-                                                >レシピを検索<ArrowRight className='see-recipe-btn-arrow' />
-                                                </a>
+                                            <p className='lack-ing_list'>
+                                                {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
+                                            </p>
+                                            <div className='match-bar-track'>
+                                                <div
+                                                    className={`match-bar-fill ${getMatchRateClass(possibleDish[5])}`}
+                                                    style={{ width: `${possibleDish[5]}%` }}
+                                                ></div>
                                             </div>
+                                            <a
+                                                href={`https://www.google.com/search?q=${encodeURIComponent(possibleDish[0] + ' レシピ')}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className='see-recipe-btn'
+                                            >レシピを検索<ArrowRight className='see-recipe-btn-arrow' />
+                                            </a>
                                         </div>
 
                                     ))
