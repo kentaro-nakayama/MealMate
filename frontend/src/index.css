@@ -1151,22 +1151,6 @@ h1 {
     flex: none;
 }
 
-p.username {
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 30px;
-    border-radius: 30px;
-    color: white;
-    background-color: #93bc5c;
-    white-space: nowrap;
-}
-
-p.username span {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0;
-}
-
 .logout-btn {
     display: block;
     width: 44px;
@@ -1283,14 +1267,6 @@ nav a.active::after {
         display: none;
     }
 
-    p.username {
-        border-radius: 30px;
-        font-weight: 500;
-        margin-left: auto;
-        padding: 5px 20px;
-        border-radius: 30px;
-    }
-
     .menu-btn {
         position: absolute;
         top: 10px;
@@ -1315,10 +1291,6 @@ nav a.active::after {
 
     .for-pc {
         display: none;
-    }
-
-    p.username {
-        margin: 0 auto;
     }
 
     .logout-btn {

@@ -1,8 +1,8 @@
 import '../reset.css';
 import { Outlet, NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Message from './Message.tsx';
-import { getUser, logout } from '../api/api.js';
+import { logout } from '../api/api.js';
 import TitleIcon from '../img/TitleIcon.svg';
 import TitleIconForMb from '../img/TitleIcon_for_mb.svg';
 import { useNotification } from '../context/useNotification';
@@ -12,19 +12,12 @@ import { LogOut } from 'lucide-react';
 
 function Layout() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [username, setUsername] = useState<string>("");
     const { showNotification } = useNotification();
     const navigate = useNavigate();
 
     const closeMenu = () => {
         setIsOpen(false);
     };
-
-    const fetchGetUser = async () => {
-        const data = await getUser();
-        setUsername(data.username);
-        return data;
-    }
 
     //ログアウト
     const fetchLogout = async () => {
@@ -36,13 +29,6 @@ function Layout() {
             showNotification("error", getErrorMessage(error));
         }
     };
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            await fetchGetUser();
-        };
-        fetchUser();
-    }, []);
 
     return (
         <div>
@@ -59,8 +45,6 @@ function Layout() {
                         <img src={TitleIconForMb} alt="Title Icon for Mobile" className='title-icon-for-mb' />
                     </h1>
                     <nav className={isOpen ? "open" : ""}>
-                        <p className='username for-mb'>ようこそ，<span>{username}</span>さん</p>
-
                         <NavLink to="/home" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             ホーム
                         </NavLink>
@@ -87,7 +71,6 @@ function Layout() {
                         </button>
                     </nav>
                     <div className="header-actions for-pc">
-                        <p className='username'>ようこそ，<span>{username}</span>さん</p>
                         <button onClick={fetchLogout} className='logout-btn'>
                             <LogOut />
                         </button>
