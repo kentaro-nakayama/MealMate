@@ -9,7 +9,7 @@ import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
 //icons
-import { UserCog, Trash2 } from 'lucide-react';
+import { UserCog, Trash2, TriangleAlert } from 'lucide-react';
 
 function Account() {
     const [username, setUsername] = useState<string>('');
@@ -103,7 +103,7 @@ function Account() {
                 </form>
 
                 <div className="form-card danger-zone">
-                    <h3>アカウントの削除</h3>
+                    <h3><TriangleAlert className='icon-in-btn' />危険な操作</h3>
                     <p>アカウントを削除すると、冷蔵庫・買い物リストのデータも全て削除され、元に戻せません。</p>
                     <button
                         type="button"

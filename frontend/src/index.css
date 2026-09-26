@@ -137,12 +137,16 @@ a.btn {
     }
 }
 
+.danger-zone h3 {
+    color: rgb(200, 64, 47);
+}
+
 .danger-zone p {
     text-align: center;
     margin: 0 auto 10px;
     width: 70%;
     font-size: 14px;
-    color: #666;
+    color: #8a5a52;
 }
 
 .danger-zone .btn {
@@ -501,6 +505,89 @@ textarea:focus {
     background-color: rgba(120, 120, 120, 0.15);
 }
 
+/* カテゴリー絞り込みチップ */
+.category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    background: #f1efe9;
+    color: #6b6b62;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.chip.active {
+    background: #93bc5c;
+    color: white;
+}
+
+.chip.cat-1 { color: rgb(96, 165, 66); background: rgba(96, 165, 66, .12); }
+.chip.cat-2 { color: rgb(255, 104, 87); background: rgba(255, 104, 87, .12); }
+.chip.cat-3 { color: rgb(0, 150, 196); background: rgba(0, 195, 255, .18); }
+.chip.cat-4 { color: rgb(199, 120, 20); background: rgba(255, 161, 80, .18); }
+.chip.cat-5 { color: rgb(180, 60, 170); background: rgba(255, 192, 255, .4); }
+.chip.cat-6 { color: rgb(184, 131, 98); background: rgba(184, 131, 98, .15); }
+
+.chip.cat-1.active { background: rgb(96, 165, 66); color: white; }
+.chip.cat-2.active { background: rgb(255, 104, 87); color: white; }
+.chip.cat-3.active { background: rgb(0, 173, 226); color: white; }
+.chip.cat-4.active { background: rgb(224, 140, 40); color: white; }
+.chip.cat-5.active { background: rgb(216, 90, 200); color: white; }
+.chip.cat-6.active { background: rgb(184, 131, 98); color: white; }
+
+@media (hover: hover) {
+    .chip:hover {
+        opacity: .8;
+    }
+}
+
+/* カテゴリーごとの見出し */
+.category-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #4a4a43;
+    margin: 16px 0 8px;
+    grid-column: 1 / -1;
+}
+
+.category-section-header:first-child {
+    margin-top: 0;
+}
+
+.category-section-count {
+    color: #b6b6ac;
+    font-weight: 400;
+}
+
+.cat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex: none;
+}
+
+.cat-dot.cat-0 { background: rgb(120, 120, 120); }
+.cat-dot.cat-1 { background: rgb(96, 165, 66); }
+.cat-dot.cat-2 { background: rgb(255, 104, 87); }
+.cat-dot.cat-3 { background: rgb(0, 195, 255); }
+.cat-dot.cat-4 { background: rgb(255, 161, 80); }
+.cat-dot.cat-5 { background: rgb(255, 192, 255); }
+.cat-dot.cat-6 { background: rgb(184, 131, 98); }
+
 @media screen and (max-width: 1000px) {
     .card-columns-container {
         grid-template-columns: repeat(2, 1fr);
@@ -587,6 +674,12 @@ textarea:focus {
     margin: 20px auto;
     padding: 40px 0;
     border-radius: 20px;
+}
+
+.form-card.danger-zone {
+    background-color: #fff6f5;
+    box-shadow: none;
+    border: 1.5px solid #f3c9c0;
 }
 
 .form-card h3 {
@@ -718,12 +811,19 @@ textarea:focus {
     height: 80px;
     font-size: 12px;
     text-align: center;
-    background-color: white;
     background-color: #93bc5c;
     color: white;
     border-radius: 50%;
     padding: 10px;
     margin: auto 0;
+}
+
+.recommend-dish-card .match-rate.mid {
+    background-color: #d9a34d;
+}
+
+.recommend-dish-card .match-rate.low {
+    background-color: #b0aca0;
 }
 
 .recommend-dish-card .match-rate p {

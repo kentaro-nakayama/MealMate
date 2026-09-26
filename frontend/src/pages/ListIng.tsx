@@ -1,16 +1,18 @@
 //css
 import '../reset.css';
 //react
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 //api
 import { getAllIng, getCat } from '../api/api.js';
 //types
 import type { ingType, catType } from '../types/type.ts';
 //components
-import Select from '../components/Select.tsx';
+import CategoryChips from '../components/CategoryChips.tsx';
+import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import { getCategoryColorClass } from '../utils/categoryColor.ts';
+import { groupByCategory } from '../utils/groupByCategory.ts';
 //context
 import { Link } from "react-router-dom";
 //icons
@@ -72,14 +74,14 @@ function ListIng() {
                             setWord={setSearchWord}
                             placeholder="材料名を検索"
                         />
-                        <Select
-                            showCatId={showCatId}
-                            setShowCatId={setShowCatId}
-                            catData={catData}
-                        />
                     </div>
                     <Link to="/list_ing/add" className='btn to-add-ing-btn'><Plus className='icon-in-btn' />材料を追加</Link>
                 </div>
+                <CategoryChips
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
                 <section className='ing-list'>
                     <div className='card-header'>
                         すべての材料
@@ -90,19 +92,18 @@ function ListIng() {
                         </span>
                     </div>
                     <div className="card-columns-container">
-                        {filteredIngData
-                            .sort((a, b) => a.cat_id - b.cat_id)
-                            .map((ing: ingType) => {
-                                const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                return (
+                        {groupByCategory(filteredIngData, catData).map((group) => (
+                            <Fragment key={group.catId}>
+                                <CategorySectionHeader catName={group.catName} count={group.items.length} />
+                                {group.items.map((ing) => (
                                     <div key={ing.ing_id} className="card">
                                         <div className='card-row'>
                                             <p className='name'>
                                                 {ing.ing_name}
                                             </p>
                                             <div className='card-right'>
-                                                <span className={`cat-name ${getCategoryColorClass(catName)}`}>
-                                                    {catName}
+                                                <span className={`cat-name ${getCategoryColorClass(group.catName)}`}>
+                                                    {group.catName}
                                                 </span>
                                                 <Link
                                                     to={`/list_ing/edit/${ing.ing_id}`}
@@ -113,8 +114,9 @@ function ListIng() {
                                             </div>
                                         </div>
                                     </div>
-                                )
-                            })}
+                                ))}
+                            </Fragment>
+                        ))}
                     </div>
                 </section>
             </div>

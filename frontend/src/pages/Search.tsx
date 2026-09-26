@@ -1,15 +1,17 @@
 //css
 import '../reset.css';
 //react
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 //api
 import { getAllIng, getCat, searchDish } from '../api/api.js';
 //types
 import type { ingType, catType } from "../types/type.ts";
 //components
-import Select from '../components/Select.tsx';
+import CategoryChips from '../components/CategoryChips.tsx';
+import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+import { groupByCategory } from '../utils/groupByCategory.ts';
 //context
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
@@ -115,16 +117,16 @@ function Search() {
                             setWord={setSearchWord}
                             placeholder="材料名を検索"
                         />
-                        <Select
-                            showCatId={showCatId}
-                            setShowCatId={setShowCatId}
-                            catData={catData}
-                        />
                     </div>
                     <button onClick={handleSearch} disabled={loading} className='btn search-btn'>
                         {loading ? "検索中..." : <><SearchIcon className='icon-in-btn' /> 検索</>}
                     </button>
                 </div>
+                <CategoryChips
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
                 <div>
                     {selectedIngIds.length > 0 && (
                         <section className='selected-ings ing-list'>
@@ -156,17 +158,20 @@ function Search() {
                         <span className='length'>{filteredIngData.length}</span>
                     </div>
                     <div className="card-columns-container">
-                        {filteredIngData
-                            .sort((a, b) => a.cat_id - b.cat_id)
-                            .map((ing: ingType) => (
-                                <IngCardCheckboxType
-                                    key={ing.ing_id}
-                                    ing={ing}
-                                    catData={catData}
-                                    selectedIngIds={selectedIngIds}
-                                    handleCheckboxChange={handleCheckboxChange}
-                                />
-                            ))}
+                        {groupByCategory(filteredIngData, catData).map((group) => (
+                            <Fragment key={group.catId}>
+                                <CategorySectionHeader catName={group.catName} count={group.items.length} />
+                                {group.items.map((ing: ingType) => (
+                                    <IngCardCheckboxType
+                                        key={ing.ing_id}
+                                        ing={ing}
+                                        catData={catData}
+                                        selectedIngIds={selectedIngIds}
+                                        handleCheckboxChange={handleCheckboxChange}
+                                    />
+                                ))}
+                            </Fragment>
+                        ))}
                     </div>
                 </section>
             </div>

@@ -1,16 +1,18 @@
 //css
 import '../reset.css';
 //react
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 //api
 import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFromShoppingList, clearShoppingList } from '../api/api.js';
 //types
 import type { ingType, catType } from '../types/type.ts';
 //components
-import Select from '../components/Select.tsx';
+import CategoryChips from '../components/CategoryChips.tsx';
+import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
 import Input from '../components/Input.tsx';
 import ShoppingCard from '../components/ShoppingCard.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
+import { groupByCategory } from '../utils/groupByCategory.ts';
 //context
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
@@ -144,20 +146,20 @@ function ShoppingList() {
                             setWord={setSearchWord}
                             placeholder="材料名を検索"
                         />
-                        <Select
-                            showCatId={showCatId}
-                            setShowCatId={setShowCatId}
-                            catData={catData}
-                        />
                     </div>
-                    <button 
-                    onClick={handleClearShoppingList} 
-                    disabled={loading || shoppingList.length === 0} 
+                    <button
+                    onClick={handleClearShoppingList}
+                    disabled={loading || shoppingList.length === 0}
                     className='btn clear-shopping-list-btn'>
                         <Check className='icon-in-btn'/>
                         {loading ? "空にしています..." : "買い物リストを空にする"}
                     </button>
                 </div>
+                <CategoryChips
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
                 <div className='tabs'>
                     <button
                         className={!isOpenShoppingList ? 'tab active not-in-ref' : 'tab'}
@@ -188,22 +190,21 @@ function ShoppingList() {
                                 </span>
                             </div>
                             <div className="shopping-columns-container">
-                                {filteredIngData
-                                    .sort((a, b) => a.cat_id - b.cat_id)
-                                    .map((ing: ingType) => {
-                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                        return (
+                                {groupByCategory(filteredIngData, catData).map((group) => (
+                                    <Fragment key={group.catId}>
+                                        <CategorySectionHeader catName={group.catName} count={group.items.length} />
+                                        {group.items.map((ing: ingType) => (
                                             <ShoppingCard
                                                 key={ing.ing_id}
                                                 ing={ing}
-                                                catId={catId}
-                                                catName={catName}
+                                                catId={group.catId}
+                                                catName={group.catName}
                                                 type="add"
                                                 onClick={handleAddIngToShoppingList}
                                             />
-                                        )
-                                    })}
+                                        ))}
+                                    </Fragment>
+                                ))}
                             </div>
                         </section>
                     </div>

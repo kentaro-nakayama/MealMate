@@ -65,6 +65,13 @@ function Home() {
         return dengerIngList.length;
     }
 
+    //一致率に応じた色分け
+    const getMatchRateClass = (rate: number) => {
+        if (rate >= 70) return "";
+        if (rate >= 40) return "mid";
+        return "low";
+    };
+
     //冷蔵庫の材料で作れる料理を取得
     const fetchPossibleDishes = async (refIngs: refIngType[]) => {
         const refIngIds = refIngs.map(ing => ing.ing_id);
@@ -99,7 +106,7 @@ function Home() {
                                     .map((possibleDish, index) => (
 
                                         <div key={index} className='flex recommend-dish-card'>
-                                            <div className='match-rate'>
+                                            <div className={`match-rate ${getMatchRateClass(possibleDish[5])}`}>
                                                 一致率
                                                 <p>{possibleDish[5]}</p>
                                             </div>

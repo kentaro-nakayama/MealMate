@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { isLoggedIn } from '../api/api';
 import { useNotification } from '../context/useNotification';
+import LoadingSpinner from './LoadingSpinner.tsx';
 
 function ProtectedRoute() {
     const [isAuth, setIsAuth] = useState<boolean | null>(null);
@@ -21,7 +22,7 @@ function ProtectedRoute() {
     }, []);
 
     if (isAuth === null) {
-        return null;
+        return <LoadingSpinner />;
     }
 
     if (!isAuth) {

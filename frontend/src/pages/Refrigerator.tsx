@@ -1,16 +1,18 @@
 //css
 import '../reset.css';
 //react
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 //api
 import { getAllIng, getCat, getRefIng, addIngToRef, deleteIngFromRef, searchDish } from '../api/api.js';
 //api
 import type { ingType, catType, refIngType } from '../types/type.ts';
 //components
-import Select from '../components/Select.tsx';
+import CategoryChips from '../components/CategoryChips.tsx';
+import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import RefCard from '../components/RefCard.tsx';
+import { groupByCategory } from '../utils/groupByCategory.ts';
 //context
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
@@ -154,11 +156,6 @@ function Refrigerator() {
                             setWord={setSearchWord}
                             placeholder="材料を検索"
                         />
-                        <Select
-                            showCatId={showCatId}
-                            setShowCatId={setShowCatId}
-                            catData={catData}
-                        />
                     </div>
                     <button onClick={handleSearch} disabled={loading}
                         className='btn search-from-ref-btn'>
@@ -166,6 +163,11 @@ function Refrigerator() {
                         {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
                     </button>
                 </div>
+                <CategoryChips
+                    showCatId={showCatId}
+                    setShowCatId={setShowCatId}
+                    catData={catData}
+                />
                 <div className="tabs">
                     <button
                         className={!isOpenRef ? "tab active not-in-ref" : "tab"}
@@ -196,22 +198,21 @@ function Refrigerator() {
                                 </span>
                             </div>
                             <div className="ref-columns-container">
-                                {filteredIngData
-                                    .sort((a, b) => a.cat_id - b.cat_id)
-                                    .map((ing: ingType) => {
-                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                        return (
+                                {groupByCategory(filteredIngData, catData).map((group) => (
+                                    <Fragment key={group.catId}>
+                                        <CategorySectionHeader catName={group.catName} count={group.items.length} />
+                                        {group.items.map((ing: ingType) => (
                                             <RefCard
                                                 key={ing.ing_id}
                                                 ing={ing}
-                                                catId={catId}
-                                                catName={catName}
+                                                catId={group.catId}
+                                                catName={group.catName}
                                                 type="add"
                                                 onClick={handleAddIngToRef}
                                             />
-                                        )
-                                    })}
+                                        ))}
+                                    </Fragment>
+                                ))}
                             </div>
                         </section>
                     </div>
