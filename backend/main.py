@@ -13,6 +13,7 @@ from flask_cors import CORS
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import re
 
 load_dotenv()
 app = Flask(__name__)
@@ -46,9 +47,9 @@ if not database_url:
         "DATABASE_URL が設定されていません。backend/.env または環境変数を確認してください。"
     )
 
-# SQLAlchemy 2.x は postgres:// を認識しないため postgresql:// に正規化する
-if database_url.startswith("postgres://"):
-    database_url = database_url.replace("postgres://", "postgresql://", 1)
+# postgres:// や postgresql+psycopg:// 等のドライバ指定を除去し、
+# インストール済みの psycopg2-binary が使われる postgresql:// に正規化する
+database_url = re.sub(r"^postgres(ql)?(\+\w+)?://", "postgresql://", database_url)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
