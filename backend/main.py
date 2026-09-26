@@ -47,9 +47,11 @@ if not database_url:
         "DATABASE_URL が設定されていません。backend/.env または環境変数を確認してください。"
     )
 
-# postgres:// や postgresql+psycopg:// 等のドライバ指定を除去し、
-# インストール済みの psycopg2-binary が使われる postgresql:// に正規化する
-database_url = re.sub(r"^postgres(ql)?(\+\w+)?://", "postgresql://", database_url)
+# postgres:// 等のスキームを正規化し、インストール済みの psycopg2-binary を
+# 明示的に使うよう postgresql+psycopg2:// に統一する
+# (SQLAlchemyのバージョンによってはドライバ未指定時に psycopg(v3) を
+#  優先するため、未インストールの環境ではエラーになる)
+database_url = re.sub(r"^postgres(ql)?(\+\w+)?://", "postgresql+psycopg2://", database_url)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
