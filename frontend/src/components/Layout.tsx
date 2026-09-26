@@ -53,18 +53,14 @@ function Layout() {
                 >
                     ☰
                 </button>
-                <h1>
-                    <img src={TitleIcon} alt="Title Icon" className='title-icon' />
-                    <img src={TitleIconForMb} alt="Title Icon for Mobile" className='title-icon-for-mb' />
-                    <p className='username for-pc'>ようこそ，<span>{username}</span>さん</p>
-                    <button onClick={fetchLogout} className='logout-btn for-pc'>
-                        <LogOut />
-                    </button>
-                </h1>
-                <div className="title-area">
+                <div className="header-row">
+                    <h1>
+                        <img src={TitleIcon} alt="Title Icon" className='title-icon' />
+                        <img src={TitleIconForMb} alt="Title Icon for Mobile" className='title-icon-for-mb' />
+                    </h1>
                     <nav className={isOpen ? "open" : ""}>
                         <p className='username for-mb'>ようこそ，<span>{username}</span>さん</p>
-                        
+
                         <NavLink to="/home" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             ホーム
                         </NavLink>
@@ -90,6 +86,12 @@ function Layout() {
                             <LogOut />
                         </button>
                     </nav>
+                    <div className="header-actions for-pc">
+                        <p className='username'>ようこそ，<span>{username}</span>さん</p>
+                        <button onClick={fetchLogout} className='logout-btn'>
+                            <LogOut />
+                        </button>
+                    </div>
                 </div>
                 {isOpen && <div className="overlay" onClick={closeMenu}></div>}
             </header>

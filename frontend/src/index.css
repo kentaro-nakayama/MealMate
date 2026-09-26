@@ -1112,22 +1112,35 @@ header {
     }
 }
 
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex: none;
+}
+
 h1 {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 10px;
-    margin-left: 15px;
+    flex: none;
 }
 
 p.username {
     font-size: 14px;
     font-weight: 500;
-    margin-left: auto;
     padding: 10px 30px;
     border-radius: 30px;
     color: white;
     background-color: #93bc5c;
+    white-space: nowrap;
 }
 
 p.username span {
@@ -1176,20 +1189,19 @@ h1 span {
 
 nav {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    background: #F8F9F3;
-    backdrop-filter: blur(5px);
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
 }
 
 nav a {
     display: block;
-    flex-basis: 150px;
-    padding: 10px 0;
+    padding: 9px 16px;
+    border-radius: 8px;
     text-align: center;
     text-decoration: none;
     position: relative;
-    text-decoration: none;
+    white-space: nowrap;
     color: #4f4f4f;
     transition: all 0.2s ease;
 }
@@ -1202,8 +1214,9 @@ nav a {
 }
 
 nav a.active {
-    color: #93bc5c;
+    color: #5a8f2e;
     background-color: #e5eed2;
+    font-weight: 700;
 }
 
 @media (hover: hover) {
@@ -1224,6 +1237,13 @@ nav a.active::after {
     background-color: #93bc5c;
 }
 
+/* PC(1行ヘッダー)ではピル型の背景で選択状態を示すため下線は非表示 */
+@media screen and (min-width: 701px) {
+    nav a.active::after {
+        display: none;
+    }
+}
+
 /* PCではボタン非表示 */
 .menu-btn {
     display: none;
@@ -1236,7 +1256,7 @@ nav a.active::after {
         position: relative;
     }
 
-    h1 {
+    .header-row {
         margin-bottom: 0px;
     }
 
