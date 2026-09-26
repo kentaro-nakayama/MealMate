@@ -65,7 +65,6 @@ function AddIng() {
             <h2><Plus className='h2-icon' />材料を追加</h2>
             <hr />
             <div className="contents-area">
-                <p>新しい材料を追加できます</p>
                 <form onSubmit={handleNewIng}>
                     <div className="input-area">
                         <div className="input-area-for-mb">

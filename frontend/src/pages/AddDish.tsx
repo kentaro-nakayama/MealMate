@@ -101,7 +101,6 @@ function AddDish() {
             <h2><Plus className='h2-icon' />料理を追加</h2>
             <hr />
             <div className="contents-area">
-                <p>新しく料理を追加できます</p>
                 <form onSubmit={handleNewDish}>
                     <h3>料理名を入力</h3>
                     <div className="input-area">

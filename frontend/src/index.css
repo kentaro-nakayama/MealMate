@@ -24,6 +24,26 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
+/* PCではウィンドウの高さに収め、メインコンテンツ内でスクロールさせる */
+@media screen and (min-width: 701px) {
+    .app-shell {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    header {
+        flex: none;
+    }
+
+    .main {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+}
+
 .main.login-page,
 .main.signup-page {
     background-color: transparent;
@@ -1193,7 +1213,7 @@ nav {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: 10px;
 }
 
 nav a {

@@ -10,12 +10,14 @@ import AuthForm from '../components/AuthForm.tsx';
 import { UserPlus } from 'lucide-react';
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { showNotification } = useNotification();
+    const navigate = useNavigate();
 
 
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,6 +37,7 @@ function SignUp() {
             showNotification("success", "サインアップしました");
             setUsername("");
             setPassword("");
+            navigate("/");
         } catch (error) {
             showNotification("error", getErrorMessage(error));
             return;

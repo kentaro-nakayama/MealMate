@@ -51,7 +51,6 @@ function ListDish() {
             <h2><CookingPot className='h2-icon' />料理</h2>
             <hr />
             <div className="contents-area">
-                <p>登録済みの料理を確認できます</p>
                 <div className="input-area">
                     <div className="input-area-for-mb">
                         <Input

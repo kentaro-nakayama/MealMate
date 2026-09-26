@@ -66,7 +66,6 @@ function ListIng() {
             <h2><Apple className='h2-icon' />材料</h2>
             <hr />
             <div className="contents-area">
-                <p>登録済みの材料を確認できます</p>
                 <div className="input-area">
                     <div className="input-area-for-mb">
                         <Input

@@ -31,7 +31,7 @@ function Layout() {
     };
 
     return (
-        <div>
+        <div className="app-shell">
             <header>
                 <button
                     onClick={() => setIsOpen(!isOpen)}

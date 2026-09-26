@@ -74,7 +74,6 @@ function Account() {
             <h2><UserCog className='h2-icon' />アカウント設定</h2>
             <hr />
             <div className="contents-area">
-                <p>ユーザー名やパスワードを変更できます</p>
                 <form className="form-card" onSubmit={handleEditUser}>
                     <h3>ユーザー情報の編集</h3>
                     <div>

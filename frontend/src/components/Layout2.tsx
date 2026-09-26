@@ -7,7 +7,7 @@ import TitleIconForMb from '../img/TitleIcon_for_mb.svg';
 function Layout2() {
 
     return (
-        <div>
+        <div className="app-shell">
             <header>
                 <h1>
                     <img src={TitleIcon} alt="Title Icon" className='title-icon'/>
