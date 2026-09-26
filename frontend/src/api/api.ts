@@ -38,6 +38,20 @@ export const login = (username: string, password: string) => apiFetch('/login', 
 // ユーザー情報の取得
 export const getUser = () => apiFetch('/user');
 
+// ユーザー情報の編集
+export const editUser = (username: string, password: string) => apiFetch('/user', {
+    method: 'PUT',
+    body: JSON.stringify({
+        username: username,
+        password: password,
+    }),
+});
+
+// ユーザー情報の削除
+export const deleteUser = () => apiFetch('/user', {
+    method: 'DELETE',
+});
+
 
 // ログイン判定
 export const isLoggedIn = async () => {

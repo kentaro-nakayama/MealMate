@@ -83,6 +83,9 @@ function Layout() {
                         <NavLink to="/shopping" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
                             買い物リスト
                         </NavLink>
+                        <NavLink to="/account" onClick={closeMenu} className={({ isActive }) => isActive ? "active" : ""}>
+                            アカウント
+                        </NavLink>
                         <button onClick={fetchLogout} className='logout-btn for-mb'>
                             <LogOut />
                         </button>

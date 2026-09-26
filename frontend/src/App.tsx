@@ -10,6 +10,7 @@ import EditIng from "./pages/EditIng";
 import EditDish from "./pages/EditDish";
 import Refrigerator from "./pages/Refrigerator";
 import ShoppingList from "./pages/ShoppingList";
+import Account from "./pages/Account";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Layout from "./components/Layout";
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/list_dish/add" element={<AddDish />} />
                                 <Route path="/list_dish/edit/:dish_id" element={<EditDish />} />
                                 <Route path="/shopping" element={<ShoppingList />} />
+                                <Route path="/account" element={<Account />} />
                             </Route>
                         </Route>
                     <Route path="/" element={<Layout2 />}>

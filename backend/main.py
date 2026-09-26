@@ -220,7 +220,8 @@ def edit_user():
 @login_required
 def delete_user():
     user = User.query.get(current_user.user_id)
-    # 後々ユーザーに関連するデータも削除するようにする
+    Refrigerator.query.filter_by(user_id=user.user_id).delete(synchronize_session=False)
+    ShoppingList.query.filter_by(user_id=user.user_id).delete(synchronize_session=False)
     db.session.delete(user)
     db.session.commit()
     logout_user()
