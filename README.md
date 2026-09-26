@@ -8,18 +8,15 @@
 そこで，手元にある材料から作れる料理を簡単に検索できるアプリを作ろうと考え，本アプリを開発しました．
 ユーザーは冷蔵庫内の材料を登録することで，その材料で作れる料理を検索でき，不足している材料も確認できます．
 
-## アプリURL
-
-https://menu-app-portfolio.vercel.app
-
 ## 技術構成
 
 - Frontend: React + TypeScript + Vite
 - Backend: Python + Flask + SQLAlchemy
 - Database: PostgreSQL
-- Deploy:
-  - Frontend: Vercel
-  - Backend: Render
+- Deploy: Vercel（フロントエンド・バックエンドAPI・DBを1プロジェクトに統合）
+  - フロントエンド: Vercel Static Build（`frontend/`）
+  - バックエンドAPI: Vercel Python Serverless Function（`api/index.py` → `backend/main.py`）
+  - DB: Vercel Postgres（Neon）
 
 ## 主な機能
 

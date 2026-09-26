@@ -1,8 +1,10 @@
 {
+    "buildCommand": "cd frontend && npm install && npm run build",
+    "outputDirectory": "frontend/dist",
     "rewrites": [
         {
             "source": "/api/:path*",
-            "destination": "https://menuapp-backend-fzft.onrender.com/api/:path*"
+            "destination": "/api/index"
         },
         {
             "source": "/(.*)",
