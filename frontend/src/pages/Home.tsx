@@ -11,9 +11,8 @@ import LoadingSpinner from '../components/LoadingSpinner.tsx';
 //context
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
-import { Link } from 'react-router-dom';
 //icons
-import { Apple, House, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, ArrowRight, Zap, ChartColumn, Star } from 'lucide-react';
+import { House, TriangleAlert, Refrigerator, ShoppingCart, ArrowRight, ChartColumn, Star } from 'lucide-react';
 
 
 function Home() {
@@ -131,73 +130,34 @@ function Home() {
                             }
                         </div>
                     </section>
-                    <div className='quick-action-and-summary'>
-                        <section className='quick-action-section'>
-                            <div className='card-header yellow'>
-                                <Zap className='h3-icon' />クイックアクション
-                            </div>
-                            <div className='quick-action-container'>
-                                <Link to="/refrigerator" className='see-ref'>
-                                    <div className='flex'>
-                                        <Refrigerator className='quick-action-icon' />
-                                        <div>
-                                            <h4>冷蔵庫を見る</h4>
-                                            <p>保存中の材料を確認</p>
-                                        </div>
-                                    </div>
-                                    <ArrowRight className='quick-action-link' />
-                                </Link>
-                                <Link to="/list_ing/add" className='add-ing'>
-                                    <div className='flex'>
-                                        <Apple className='quick-action-icon' />
-                                        <div>
-                                            <h4>材料を追加</h4>
-                                            <p>新しい材料を追加</p>
-                                        </div>
-                                    </div>
-                                    <ArrowRight className='quick-action-link' />
-                                </Link>
-                                <Link to="/list_dish/add" className='add-dish'>
-                                    <div className='flex'>
-                                        <CookingPot className='quick-action-icon' />
-                                        <div>
-                                            <h4>料理を追加</h4>
-                                            <p>新しい料理を追加</p>
-                                        </div>
-                                    </div>
-                                    <ArrowRight className='quick-action-link' />
-                                </Link>
-                            </div>
-                        </section>
-                        <section className='summary-section'>
-                            <div className='card-header blue'>
-                                <ChartColumn className='h3-icon' />サマリー
-                            </div>
-                            <div className="summary-container">
-                                <div className='ing-in-ref'>
-                                    <div className="flex">
-                                        <Refrigerator className='summary-icon' />
-                                        <h4>{refIngData.length}<span>個</span></h4>
-                                    </div>
-                                    <p>冷蔵庫の材料</p>
+                    <section className='summary-section'>
+                        <div className='card-header blue'>
+                            <ChartColumn className='h3-icon' />サマリー
+                        </div>
+                        <div className="summary-container">
+                            <div className='ing-in-ref'>
+                                <div className="flex">
+                                    <Refrigerator className='summary-icon' />
+                                    <h4>{refIngData.length}<span>個</span></h4>
                                 </div>
-                                <div className='denger-ing'>
-                                    <div className="flex">
-                                        <TriangleAlert className='summary-icon' />
-                                        <h4>{getDengerIngCount()}<span>個</span></h4>
-                                    </div>
-                                    <p>賞味期限が近い材料</p>
-                                </div>
-                                <div className='ing-in-shopping-list'>
-                                    <div className="flex">
-                                        <ShoppingCart className='summary-icon' />
-                                        <h4>{shoppingList.length}<span>個</span></h4>
-                                    </div>
-                                    <p>買い物リストの材料</p>
-                                </div>
+                                <p>冷蔵庫の材料</p>
                             </div>
-                        </section>
-                    </div>
+                            <div className='denger-ing'>
+                                <div className="flex">
+                                    <TriangleAlert className='summary-icon' />
+                                    <h4>{getDengerIngCount()}<span>個</span></h4>
+                                </div>
+                                <p>賞味期限が近い材料</p>
+                            </div>
+                            <div className='ing-in-shopping-list'>
+                                <div className="flex">
+                                    <ShoppingCart className='summary-icon' />
+                                    <h4>{shoppingList.length}<span>個</span></h4>
+                                </div>
+                                <p>買い物リストの材料</p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

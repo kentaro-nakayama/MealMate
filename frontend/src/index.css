@@ -773,7 +773,12 @@ textarea:focus {
 }
 
 .recommend-section {
-    width: 35%;
+    width: 60%;
+}
+
+.summary-section {
+    flex: 1;
+    min-width: 0;
 }
 
 /* セクション内のアイコン */
@@ -903,61 +908,37 @@ a.see-recipe-btn {
     stroke-width: 2.5;
 }
 
-.quick-action-and-summary {
-    width: 65%;
-}
-
-
-.quick-action-container,
 .summary-container {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 16px;
     padding: 20px;
-    height: 160px;
 }
 
-.quick-action-container>a,
 .summary-container>div {
-    flex: 1;
     border-radius: 20px;
     padding: 20px;
     position: relative;
     transition: 0.2s ease;
 }
 
-.quick-action-container>a:active {
-    transform: scale(1.05);
-}
-
-@media (hover: hover) {
-    .quick-action-container>a:hover {
-        transform: scale(1.05);
-    }
-}
-
-
 /* カードのスタイル */
-.see-ref,
 .ing-in-ref {
     border: 0.5px solid #93bc5c;
     background: #93bc5c10;
 }
 
-.add-ing,
 .denger-ing {
     border: 0.5px solid rgba(255, 204, 0, 0.8);
     background: #ffbf0010;
 }
 
-.add-dish,
 .ing-in-shopping-list {
     border: 0.5px solid rgba(24, 167, 211, 0.4);
     background: #19c1f410;
 }
 
-
 /* カード内先頭のアイコンのサイズ */
-.quick-action-icon,
 .summary-icon {
     min-width: 35px;
     min-height: 35px;
@@ -965,36 +946,27 @@ a.see-recipe-btn {
 }
 
 /* カード内先頭のアイコン色 */
-.see-ref .quick-action-icon,
-.ing-in-ref .summary-icon,
-.see-ref .quick-action-link {
+.ing-in-ref .summary-icon {
     color: #93bc5c;
 }
 
-.add-ing .quick-action-icon,
-.denger-ing .summary-icon,
-.add-ing .quick-action-link {
+.denger-ing .summary-icon {
     color: #d4b487;
 }
 
-.add-dish .quick-action-icon,
-.ing-in-shopping-list .summary-icon,
-.add-dish .quick-action-link {
+.ing-in-shopping-list .summary-icon {
     color: #7db0ce;
 }
 
 /* カードのタイトルのスタイル */
-.see-ref h4,
 .ing-in-ref h4 {
     color: #93bc5c;
 }
 
-.add-ing h4,
 .denger-ing h4 {
     color: #d4b487;
 }
 
-.add-dish h4,
 .ing-in-shopping-list h4 {
     color: #7db0ce;
 }
@@ -1005,29 +977,9 @@ a.see-recipe-btn {
     margin-bottom: 15px;
 }
 
-.quick-action-section .flex {
-    margin-bottom: 30px;
-}
-
-
-.quick-action-container p,
 .summary-container p {
     font-size: 14px;
-}
-
-.summary-container p {
     text-align: center;
-}
-
-.quick-action-link {
-    background-color: white;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    padding: 4px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
 }
 
 @media screen and (max-width: 1100px) {
@@ -1044,21 +996,6 @@ a.see-recipe-btn {
         display: flex;
         flex-direction: column;
         height: 365px;
-    }
-
-    .quick-action-and-summary {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 700px) {
-
-    .quick-action-container,
-    .summary-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        height: auto;
     }
 }
 
