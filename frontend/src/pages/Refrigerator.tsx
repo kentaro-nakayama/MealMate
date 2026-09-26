@@ -12,7 +12,8 @@ import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 import RefCard from '../components/RefCard.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from "react-router-dom";
 //icon
 import { Refrigerator as RefrigeratorIcon, SearchIcon } from 'lucide-react';
@@ -98,8 +99,8 @@ function Refrigerator() {
             await addIngToRef(ing_id);
             showNotification("success", "材料が冷蔵庫に追加されました");
             fetchGetRefIng();
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     }
@@ -110,8 +111,8 @@ function Refrigerator() {
             await deleteIngFromRef(ing_id);
             showNotification("success", "材料が冷蔵庫から削除されました");
             fetchGetRefIng();
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     }
@@ -133,8 +134,8 @@ function Refrigerator() {
                     resultList: data.result_list,
                 },
             });
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
         } finally {
             setLoading(false);
         }

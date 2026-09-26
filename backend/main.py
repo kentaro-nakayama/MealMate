@@ -159,8 +159,6 @@ def login():
     user = User.query.filter_by(username=username).first()
     if user and user.password_hash == password:
         login_user(user)
-        # デバッグ用
-        print("login後:", current_user.is_authenticated)
         return jsonify({"message": "ログインしました"}), 200
     else:
         return jsonify({"message": "ユーザー名またはパスワードが間違っています"}), 401

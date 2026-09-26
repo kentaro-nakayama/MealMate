@@ -12,7 +12,8 @@ import Input from '../components/Input.tsx';
 import ShoppingCard from '../components/ShoppingCard.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { ShoppingCart } from 'lucide-react';
 //icons
 import { Check } from 'lucide-react';
@@ -97,8 +98,8 @@ function ShoppingList() {
             await addIngToShoppingList(ing_id);
             showNotification("success", "材料が買い物リストに追加されました");
             fetchGetShoppingList();
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     }
@@ -109,8 +110,8 @@ function ShoppingList() {
             await deleteIngFromShoppingList(ing_id);
             showNotification("success", "材料が買い物リストから削除されました");
             fetchGetShoppingList();
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     }
@@ -122,8 +123,8 @@ function ShoppingList() {
             await clearShoppingList();
             showNotification("success", "買い物リストが空になりました");
             fetchGetShoppingList();
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         } finally {
             setLoading(false);

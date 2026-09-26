@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { isLoggedIn } from '../api/api';
-import { useNotification } from '../context/NotificationContext';
+import { useNotification } from '../context/useNotification';
 
 function ProtectedRoute() {
     const [isAuth, setIsAuth] = useState<boolean | null>(null);

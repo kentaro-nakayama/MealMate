@@ -12,7 +12,8 @@
     import Input from '../components/Input.tsx';
     import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
     //context
-    import { useNotification } from '../context/NotificationContext.tsx';
+    import { useNotification } from '../context/useNotification';
+    import { getErrorMessage } from '../utils/error.ts';
     import { useNavigate } from 'react-router-dom';
     //icons
     import { Pencil } from 'lucide-react';
@@ -88,9 +89,9 @@
                 await editDish(Number(dish_id), trimmedDishName, selectedIngIds, dishMemo);
                 showNotification("success", "料理が編集されました");
                 navigate('/list_dish');
-            } catch (error: any) {
+            } catch (error) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                showNotification("error", error.message);
+                showNotification("error", getErrorMessage(error));
                 return;
             } finally {
                 setLoading(false);

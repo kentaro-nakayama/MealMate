@@ -9,7 +9,8 @@ import type { refIngType, ResultItemType } from '../types/type.ts';
 //components
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { Link } from 'react-router-dom';
 //icons
 import { Apple, House, TriangleAlert, CookingPot, Refrigerator, ShoppingCart, ArrowRight, Zap, ChartColumn, Star } from 'lucide-react';
@@ -33,8 +34,8 @@ function Home() {
                 const refIngs = refData.ings_in_ref_list_json;
                 setRefIngData(refIngs);
                 await fetchPossibleDishes(refIngs);
-            } catch (error: any) {
-                showNotification("error", error.message);
+            } catch (error) {
+                showNotification("error", getErrorMessage(error));
             } finally {
                 setFirstLoading(false);
             }
@@ -74,8 +75,8 @@ function Home() {
         try {
             const data = await searchDish(refIngIds);
             setPossibleDishList(data.result_list);
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
         }
     };
 

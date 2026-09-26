@@ -5,7 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 //api
 import { addLackIngToShoppingList } from '../api/api';
 //context
-import { useNotification } from '../context/NotificationContext';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error';
 //icons
 import { ChefHat, ArrowLeft } from "lucide-react";
 
@@ -28,8 +29,8 @@ function Result() {
         try {
             await addLackIngToShoppingList(resultList.map((result) => result[4]).flat());
             showNotification("success", "不足している材料が買い物リストに追加されました");
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     };

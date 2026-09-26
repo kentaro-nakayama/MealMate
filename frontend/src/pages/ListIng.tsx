@@ -25,6 +25,18 @@ function ListIng() {
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
 
 
+    // 全ての材料を取得
+    const fetchGetAllIng = async () => {
+        const data = await getAllIng();
+        setIngData(data.ing_list_json);
+    };
+
+    // カテゴリーを取得
+    const fetchGetCat = async () => {
+        const data = await getCat();
+        setCatData(data.cat_list_json);
+    };
+
     //ローディング表示
     useEffect(() => {
         const firstFetch = async () => {
@@ -39,19 +51,6 @@ function ListIng() {
     if (firstLoading) {
         return <LoadingSpinner />;
     }
-
-    // 全ての材料を取得
-    const fetchGetAllIng = async () => {
-        const data = await getAllIng();
-        setIngData(data.ing_list_json);
-    };
-
-    // カテゴリーを取得
-    const fetchGetCat = async () => {
-        const data = await getCat();
-        setCatData(data.cat_list_json);
-    };
-
 
     const filteredIngData = ingData.filter((ing: ingType) => {
         const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);

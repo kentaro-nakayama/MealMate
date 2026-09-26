@@ -1,23 +1,9 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-
-type NotificationContextType = {
-    notification: { type: string; message: string };
-    showNotification: (type: string, message: string) => void;
-};
+import { useEffect, useState, type ReactNode } from "react";
+import { NotificationContext } from "./notificationContextInstance";
 
 type NotificationProviderProps = {
     children: ReactNode;
 };
-
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
-
-const useNotification = () => {
-    const context = useContext(NotificationContext);
-    if (!context) {
-        throw new Error("useNotificationはNotificationProviderの内部で使用する必要があります");
-    }
-    return context;
-}
 
 const NotificationProvider = ({ children }: NotificationProviderProps) => {
     const [notification, setNotification] = useState({ type: '', message: '' });
@@ -40,5 +26,4 @@ const NotificationProvider = ({ children }: NotificationProviderProps) => {
     );
 }
 
-export { NotificationProvider, useNotification };
-
+export { NotificationProvider };

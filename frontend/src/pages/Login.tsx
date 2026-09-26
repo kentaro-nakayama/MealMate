@@ -7,7 +7,8 @@ import { login } from '../api/api.js';
 //components
 import AuthForm from '../components/AuthForm.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
 //icons
 import { User } from 'lucide-react';
@@ -20,7 +21,7 @@ function Login() {
     const navigate = useNavigate();
 
 
-    const handleLogin = async (e: any) => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const trimmedUsername = username.trim();
         const trimmedPassword = password.trim();
@@ -38,8 +39,8 @@ function Login() {
             setUsername("");
             setPassword("");
             navigate("/home");
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     };

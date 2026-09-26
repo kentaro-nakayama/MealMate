@@ -8,7 +8,8 @@ import { signUp } from '../api/api.js';
 import AuthForm from '../components/AuthForm.tsx';
 //context
 import { UserPlus } from 'lucide-react';
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 
 function SignUp() {
 
@@ -17,7 +18,7 @@ function SignUp() {
     const { showNotification } = useNotification();
 
 
-    const handleSignUp = async (e: any) => {
+    const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const trimmedUsername = username.trim();
         const trimmedPassword = password.trim();
@@ -34,8 +35,8 @@ function SignUp() {
             showNotification("success", "サインアップしました");
             setUsername("");
             setPassword("");
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         }
     };

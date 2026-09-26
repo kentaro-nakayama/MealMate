@@ -22,10 +22,15 @@ function ListDish() {
     const [search, setSearch] = useState('');
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
 
+    const fetchGetAllDish = async () => {
+        const data = await getAllDish();
+        setDishesData(data.dish_list_json);
+    };
+
     //ローディング表示
     useEffect(() => {
-        setFirstLoading(true);
         const firstFetch = async () => {
+            setFirstLoading(true);
             await fetchGetAllDish();
             setFirstLoading(false);
         };
@@ -35,11 +40,6 @@ function ListDish() {
     if (firstLoading) {
         return <LoadingSpinner />;
     }
-
-    const fetchGetAllDish = async () => {
-        const data = await getAllDish();
-        setDishesData(data.dish_list_json);
-    };
 
     // 検索フィルタ
     const filteredDishes = dishesData.filter((dish) =>

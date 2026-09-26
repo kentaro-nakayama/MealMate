@@ -10,7 +10,8 @@ import type { catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 //icons
@@ -45,7 +46,7 @@ function EditIng() {
         setEditedIngCatId(data.cat_id.toString());
     };
 
-    const handleEditedIng = async (e: any) => {
+    const handleEditedIng = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         const trimmedEditedIngName = editedIngName.trim();
@@ -65,8 +66,8 @@ function EditIng() {
             setEditedIngName('');
             setEditedIngCatId('');
             navigate('/list_ing');
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         } finally {
             setLoading(false);

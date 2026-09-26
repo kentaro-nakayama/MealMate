@@ -11,7 +11,8 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 //icons
 import { Plus } from 'lucide-react';
 
@@ -78,9 +79,9 @@ function AddDish() {
             setNewDishName('');
             setSelectedIngIds([]);
             setNewDishMemo('');
-        } catch (error: any) {
+        } catch (error) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            showNotification("error", error.message);
+            showNotification("error", getErrorMessage(error));
             return;
         } finally {
             setLoading(false);

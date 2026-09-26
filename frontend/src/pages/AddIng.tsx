@@ -10,7 +10,8 @@ import type { catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 //icons
 import { Plus } from 'lucide-react';
 
@@ -32,7 +33,7 @@ function AddIng() {
         setCatData(data.cat_list_json);
     };
 
-    const handleNewIng = async (e: any) => {
+    const handleNewIng = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         const trimmednewIngName = newIngName.trim();
@@ -51,8 +52,8 @@ function AddIng() {
             showNotification("success", "材料が追加されました");
             setNewIngName('');
             setNewIngCatId('');
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
             return;
         } finally {
             setLoading(false);

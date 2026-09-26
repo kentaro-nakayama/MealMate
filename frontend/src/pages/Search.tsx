@@ -11,7 +11,8 @@ import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
 //context
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from "react-router-dom";
 //icons
 import { Search as SearchIcon } from 'lucide-react';
@@ -85,9 +86,9 @@ function Search() {
                     resultList: data.result_list,
                 },
             });
-        } catch (error: any) {
+        } catch (error) {
             window.scrollTo({ top: 0, behavior: "smooth" });    
-            showNotification("error", error.message);
+            showNotification("error", getErrorMessage(error));
         } finally {
             setLoading(false);
         }

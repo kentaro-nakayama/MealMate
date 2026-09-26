@@ -5,7 +5,8 @@ import Message from './Message.tsx';
 import { getUser, logout } from '../api/api.js';
 import TitleIcon from '../img/TitleIcon.svg';
 import TitleIconForMb from '../img/TitleIcon_for_mb.svg';
-import { useNotification } from '../context/NotificationContext.tsx';
+import { useNotification } from '../context/useNotification';
+import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 
@@ -31,13 +32,16 @@ function Layout() {
             await logout();
             showNotification("success", "ログアウトしました");
             navigate("/");
-        } catch (error: any) {
-            showNotification("error", error.message);
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
         }
     };
 
     useEffect(() => {
-        fetchGetUser();
+        const fetchUser = async () => {
+            await fetchGetUser();
+        };
+        fetchUser();
     }, []);
 
     return (
