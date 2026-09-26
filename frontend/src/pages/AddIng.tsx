@@ -1,0 +1,92 @@
+//css
+import '../reset.css';
+//react
+import { useState, useEffect } from "react";
+//api
+import { getCat, addIng } from '../api/api.js';
+//types
+import type { catType } from '../types/type.ts';
+//components
+import Select from '../components/Select.tsx';
+import Input from '../components/Input.tsx';
+//context
+import { useNotification } from '../context/NotificationContext.tsx';
+//icons
+import { Plus } from 'lucide-react';
+
+function AddIng() {
+    const { showNotification } = useNotification();
+    const [catData, setCatData] = useState<catType[]>([]);
+    const [newIngName, setNewIngName] = useState<string>('');
+    const [newIngCatId, setNewIngCatId] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        fetchGetCat();
+    }, []);
+
+    //カテゴリーを取得
+    const fetchGetCat = async () => {
+        const data = await getCat();
+        setCatData(data.cat_list_json);
+    };
+
+    const handleNewIng = async (e: any) => {
+        e.preventDefault();
+        setLoading(true);
+        const trimmednewIngName = newIngName.trim();
+        if (!trimmednewIngName) {
+            showNotification("error", "材料名を入力してください");
+            setLoading(false);
+            return;
+        }
+        if (!newIngCatId) {
+            showNotification("error", "カテゴリーを選択してください");
+            setLoading(false);
+            return;
+        }
+        try {
+            await addIng(trimmednewIngName, Number(newIngCatId));
+            showNotification("success", "材料が追加されました");
+            setNewIngName('');
+            setNewIngCatId('');
+        } catch (error: any) {
+            showNotification("error", error.message);
+            return;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="main add-ing-page">
+            <h2><Plus className='h2-icon' />材料を追加</h2>
+            <hr />
+            <div className="contents-area">
+                <p>新しい材料を追加できます</p>
+                <form onSubmit={handleNewIng}>
+                    <div className="input-area">
+                        <div className="input-area-for-mb">
+                            <Input
+                                word={newIngName}
+                                setWord={setNewIngName}
+                                placeholder="材料名を入力"
+                            />
+                            <Select
+                                showCatId={newIngCatId}
+                                setShowCatId={setNewIngCatId}
+                                catData={catData}
+                            />
+                        </div>
+                        <button type="submit" disabled={loading} className='btn add-ing-btn'>
+                            {loading ? "追加中..." : <><Plus className='icon-in-btn' /> 追加</>}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+export default AddIng;

@@ -1,0 +1,162 @@
+//css
+import '../reset.css';
+//react
+import { useState, useEffect } from "react";
+//api
+import { getAllIng, getCat, addDish } from '../api/api.js';
+//types
+import type { ingType, catType } from '../types/type.ts';
+//components
+import Select from '../components/Select.tsx';
+import Input from '../components/Input.tsx';
+import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+//context
+import { useNotification } from '../context/NotificationContext.tsx';
+//icons
+import { Plus } from 'lucide-react';
+
+function AddDish() {
+    const { showNotification } = useNotification();
+    const [ingData, setIngData] = useState<ingType[]>([]);
+    const [catData, setCatData] = useState<catType[]>([]);
+    const [newDishName, setNewDishName] = useState<string>("");
+    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
+    const [searchWord, setSearchWord] = useState<string>("");
+    const [showCatId, setShowCatId] = useState<string>("");
+    const [newDishMemo, setNewDishMemo] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        fetchGetAllIng();
+        fetchGetCat();
+    }, []);
+
+    // 全ての材料を取得
+    const fetchGetAllIng = async () => {
+        const data = await getAllIng();
+        setIngData(data.ing_list_json);
+    };
+
+    // カテゴリーを取得
+    const fetchGetCat = async () => {
+        const data = await getCat();
+        setCatData(data.cat_list_json);
+    };
+
+    const handleCheckboxChange = (ingId: number) => {
+        setSelectedIngIds((prev) => {
+            if (prev.includes(ingId)) {
+                return prev.filter((id) => id !== ingId);
+            }
+            return [...prev, ingId];
+        });
+    };
+
+    const handleNewDish = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        const trimmedDishName = newDishName.trim();
+
+        if (!trimmedDishName) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showNotification("error", "料理名を入力してください");
+            setLoading(false);
+            return;
+        }
+
+        if (selectedIngIds.length === 0) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showNotification("error", "材料を1つ以上選択してください");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            await addDish(trimmedDishName, selectedIngIds, newDishMemo);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showNotification("success", "料理が追加されました");
+            setNewDishName('');
+            setSelectedIngIds([]);
+            setNewDishMemo('');
+        } catch (error: any) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showNotification("error", error.message);
+            return;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const filteredIngData = ingData.filter((ing: ingType) => {
+        const matchCategory =
+            showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchSearch =
+            ing.ing_name.includes(searchWord.trim());
+        return matchCategory && matchSearch;
+    });
+
+    return (
+        <div className="main add-dish-page">
+            <h2><Plus className='h2-icon' />料理を追加</h2>
+            <hr />
+            <div className="contents-area">
+                <p>新しく料理を追加できます</p>
+                <form onSubmit={handleNewDish}>
+                    <h3>料理名を入力</h3>
+                    <div className="input-area">
+                        <Input
+                            word={newDishName}
+                            setWord={setNewDishName}
+                            placeholder="料理名を入力"
+                        />
+                    </div>
+                    <h3>材料を選択</h3>
+                    <div className="input-area">
+                        <div className="input-area-for-mb">
+                            <Input
+                                word={searchWord}
+                                setWord={setSearchWord}
+                                placeholder="材料を検索"
+                            />
+                            <Select
+                                showCatId={showCatId}
+                                setShowCatId={setShowCatId}
+                                catData={catData}
+                            />
+                        </div>
+                    </div>
+                    <section className='ing-list'>
+                        <div className='card-header'>
+                            材料一覧
+                            <span className='length'>{filteredIngData.length}</span>
+                        </div>
+                        <div className='card-columns-container'>
+                            {filteredIngData
+                                .sort((a, b) => a.cat_id - b.cat_id)
+                                .map((ing: ingType) => (
+                                    <IngCardCheckboxType
+                                        key={ing.ing_id}
+                                        ing={ing}
+                                        catData={catData}
+                                        selectedIngIds={selectedIngIds}
+                                        handleCheckboxChange={handleCheckboxChange}
+                                    />
+                                ))}
+                        </div>
+                    </section>
+                    <h3>メモ</h3>
+                    <textarea
+                        value={newDishMemo}
+                        onChange={(e) => setNewDishMemo(e.target.value)}
+                        placeholder="メモを入力(任意)"
+                    />
+                    <button type="submit" disabled={loading} className='btn add-dish-btn'>
+                        {loading ? "追加中..." : <><Plus className='icon-in-btn' />追加</>}
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+export default AddDish;

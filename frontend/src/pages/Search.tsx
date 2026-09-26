@@ -1,0 +1,176 @@
+//css
+import '../reset.css';
+//react
+import { useState, useEffect } from "react";
+//api
+import { getAllIng, getCat, searchDish } from '../api/api.js';
+//types
+import type { ingType, catType } from "../types/type.ts";
+//components
+import Select from '../components/Select.tsx';
+import Input from '../components/Input.tsx';
+import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
+//context
+import { useNotification } from '../context/NotificationContext.tsx';
+import { useNavigate } from "react-router-dom";
+//icons
+import { Search as SearchIcon } from 'lucide-react';
+
+function Search() {
+    const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
+    const [ingData, setIngData] = useState<ingType[]>([]);
+    const [catData, setCatData] = useState<catType[]>([]);
+    const [searchWord, setSearchWord] = useState<string>("");
+    const [showCatId, setShowCatId] = useState<string>("");
+    const { showNotification } = useNotification();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [firstLoading, setFirstLoading] = useState<boolean>(false);
+
+    const navigate = useNavigate();
+
+    //ローディング表示
+    useEffect(() => {
+        const firstFetch = async () => {
+            setFirstLoading(true);
+            await fetchGetAllIng();
+            await fetchGetCat();
+            setFirstLoading(false);
+        };
+        firstFetch();
+    }, []);
+
+    if (firstLoading) {
+        return (
+            <div className="main loading-area">
+                <div className="spinner"></div>
+                <p>読み込み中...</p>
+            </div>
+        );
+    }
+
+    // 全ての材料を取得
+    const fetchGetAllIng = async () => {
+        const data = await getAllIng();
+        setIngData(data.ing_list_json);
+    };
+
+    // カテゴリーを取得
+    const fetchGetCat = async () => {
+        const data = await getCat();
+        setCatData(data.cat_list_json);
+    };
+
+    const handleCheckboxChange = (ingId: number) => {
+        setSelectedIngIds((prev) => {
+            if (prev.includes(ingId)) {
+                return prev.filter((id) => id !== ingId);
+            }
+            return [...prev, ingId];
+        });
+    };
+
+    const handleSearch = async () => {
+        setLoading(true);
+        if (selectedIngIds.length === 0) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            showNotification("error", "材料を1つ以上選択してください");
+            setLoading(false);
+            return;
+        }
+        try {
+            const data = await searchDish(selectedIngIds);
+            navigate("/result", {
+                state: {
+                    selectedIngIds,
+                    resultList: data.result_list,
+                },
+            });
+        } catch (error: any) {
+            window.scrollTo({ top: 0, behavior: "smooth" });    
+            showNotification("error", error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const filteredIngData = ingData.filter((ing: ingType) => {
+        const matchCategory =
+            showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchSearch =
+            ing.ing_name.includes(searchWord.trim());
+        return matchCategory && matchSearch;
+    });
+
+    return (
+        <div className="main search-page">
+            <h2><SearchIcon className='h2-icon' />検索</h2>
+            <hr />
+            <div className="contents-area">
+                <p>選んだ材料で作れる料理を検索できます</p>
+                <div className="input-area">
+                    <div className='input-area-for-mb'>
+                        <Input
+                            word={searchWord}
+                            setWord={setSearchWord}
+                            placeholder="材料名を検索"
+                        />
+                        <Select
+                            showCatId={showCatId}
+                            setShowCatId={setShowCatId}
+                            catData={catData}
+                        />
+                    </div>
+                    <button onClick={handleSearch} disabled={loading} className='btn search-btn'>
+                        {loading ? "検索中..." : <><SearchIcon className='icon-in-btn' /> 検索</>}
+                    </button>
+                </div>
+                <div>
+                    {selectedIngIds.length > 0 && (
+                        <section className='selected-ings ing-list'>
+                            <div className='card-header'>
+                                選択中の材料
+                                <span className='length'>{selectedIngIds.length}</span>
+                            </div>
+                            <div className='card-columns-container selected-ings-container'>
+                                {selectedIngIds.map((id) => {
+                                    const ing = ingData.find((ing) => ing.ing_id === id);
+                                    return ing
+                                        ?
+                                        <IngCardCheckboxType
+                                            key={ing.ing_id}
+                                            ing={ing}
+                                            catData={catData}
+                                            selectedIngIds={selectedIngIds}
+                                            handleCheckboxChange={handleCheckboxChange}
+                                        />
+                                        : null;
+                                })}
+                            </div>
+                        </section>
+                    )}
+                </div>
+                <section className='ing-list'>
+                    <div className='card-header'>
+                        材料一覧
+                        <span className='length'>{filteredIngData.length}</span>
+                    </div>
+                    <div className="card-columns-container">
+                        {filteredIngData
+                            .sort((a, b) => a.cat_id - b.cat_id)
+                            .map((ing: ingType) => (
+                                <IngCardCheckboxType
+                                    key={ing.ing_id}
+                                    ing={ing}
+                                    catData={catData}
+                                    selectedIngIds={selectedIngIds}
+                                    handleCheckboxChange={handleCheckboxChange}
+                                />
+                            ))}
+                    </div>
+                </section>
+            </div>
+        </div>
+    );
+}
+
+export default Search;

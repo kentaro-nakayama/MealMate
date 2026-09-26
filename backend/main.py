@@ -1,0 +1,603 @@
+from flask import Flask, request, jsonify
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_cors import CORS
+from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+app = Flask(__name__)
+
+app.secret_key = os.getenv("SECRET_KEY")
+if not app.secret_key:
+    raise RuntimeError(
+        "SECRET_KEY が設定されていません。backend/.env または環境変数を確認してください。"
+    )
+
+origins_raw = os.getenv("FRONTEND_ORIGINS")
+if not origins_raw:
+    raise RuntimeError(
+        "FRONTEND_ORIGINS が設定されていません。backend/.env または環境変数を確認してください。"
+    )
+
+allowed_origins = [o.strip() for o in origins_raw.split(",") if o.strip()]
+
+CORS(
+    app,
+    resources={r"/api/*": {"origins": allowed_origins}},
+    supports_credentials=True,
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+)
+
+# DB
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    raise RuntimeError(
+        "DATABASE_URL が設定されていません。backend/.env または環境変数を確認してください。"
+    )
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = True
+
+db = SQLAlchemy()
+migrate = Migrate()
+
+db.init_app(app)
+migrate.init_app(app, db)
+
+
+# ログイン機能
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return jsonify({"message": "ログインしてください"}), 401
+
+
+# ユーザー(ユーザー別)
+class User(UserMixin, db.Model):
+    __tablename__ = "user"
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password_hash = db.Column(db.String(1000), nullable=False)
+
+    def get_id(self):
+        return str(self.user_id)
+
+
+# 材料(共通マスタ)
+class Ingredient(db.Model):
+    __tablename__ = "ingredient"
+    ing_id = db.Column(db.Integer, primary_key=True)
+    ing_name = db.Column(db.String(20), unique=True, nullable=False)
+    cat_id = db.Column(db.Integer, db.ForeignKey("category.cat_id"), nullable=False)
+
+
+# カテゴリー(共通マスタ)
+class Category(db.Model):
+    __tablename__ = "category"
+    cat_id = db.Column(db.Integer, primary_key=True)
+    cat_name = db.Column(db.String(20), unique=True, nullable=False)
+
+
+# 料理(共通マスタ)
+class Dish(db.Model):
+    __tablename__ = "dish"
+    dish_id = db.Column(db.Integer, primary_key=True)
+    dish_name = db.Column(db.String(20), unique=True, nullable=False)
+    memo = db.Column(db.String(1000))
+
+
+# 料理と材料の関連(共通マスタ)
+class Ing_Dish_Set(db.Model):
+    __tablename__ = "ing_dish_set"
+    dish_id = db.Column(db.Integer, db.ForeignKey("dish.dish_id"), primary_key=True)
+    ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+
+
+# 冷蔵庫(ユーザー別)
+class Refrigerator(db.Model):
+    __tablename__ = "refrigerator"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
+    ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+    added_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship("User")
+    ingredient = db.relationship("Ingredient")
+
+
+# 買い物リスト(ユーザー別)
+class ShoppingList(db.Model):
+    __tablename__ = "shopping_list"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
+    ing_id = db.Column(db.Integer, db.ForeignKey("ingredient.ing_id"), primary_key=True)
+    user = db.relationship("User")
+    ingredient = db.relationship("Ingredient")
+
+
+# API
+# サインアップ
+@app.route("/api/signup", methods=["POST"])
+def signup():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        return jsonify({"message": "このユーザー名はすでに使用されています"}), 400
+    new_user = User(username=username, password_hash=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "ユーザー登録が完了しました"}), 201
+
+
+# ログイン
+@app.route("/api/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    user = User.query.filter_by(username=username).first()
+    if user and user.password_hash == password:
+        login_user(user)
+        # デバッグ用
+        print("login後:", current_user.is_authenticated)
+        return jsonify({"message": "ログインしました"}), 200
+    else:
+        return jsonify({"message": "ユーザー名またはパスワードが間違っています"}), 401
+
+
+# ログイン判定
+@app.route("/api/isLoggedIn", methods=["GET"])
+def is_logged_in():
+    if current_user.is_authenticated:
+        return jsonify({"isLoggedIn": True}), 200
+    else:
+        return jsonify({"isLoggedIn": False}), 200
+
+
+# ログアウト
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    logout_user()
+    return jsonify({"message": "ログアウトしました"}), 200
+
+
+# ユーザー情報の取得
+@app.route("/api/user", methods=["GET"])
+@login_required
+def get_user():
+    return (
+        jsonify({"user_id": current_user.user_id, "username": current_user.username}),
+        200,
+    )
+
+
+# ユーザー情報の編集
+@app.route("/api/user", methods=["PUT"])
+@login_required
+def edit_user():
+    data = request.get_json()
+    new_username = data["username"]
+    new_password = data["password"]
+    if new_username:
+        existing_user = User.query.filter_by(username=new_username).first()
+        if existing_user and existing_user.user_id != current_user.user_id:
+            return jsonify({"message": "このユーザー名はすでに使用されています"}), 400
+        current_user.username = new_username
+    if new_password:
+        current_user.password_hash = new_password
+    db.session.commit()
+    return jsonify({"message": "ユーザー情報が更新されました"}), 200
+
+
+# ユーザー情報の削除
+@app.route("/api/user", methods=["DELETE"])
+@login_required
+def delete_user():
+    user = User.query.get(current_user.user_id)
+    # 後々ユーザーに関連するデータも削除するようにする
+    db.session.delete(user)
+    db.session.commit()
+    logout_user()
+    return jsonify({"message": "ユーザーが削除されました"}), 200
+
+
+# 全ての材料を取得するAPI
+@app.route("/api/getAllIng", methods=["GET"])
+def get_all_ing():
+    ing_list = Ingredient.query.all()
+    ing_list_json = []
+    for ing in ing_list:
+        ing_list_json.append(
+            {
+                "ing_id": ing.ing_id,
+                "ing_name": ing.ing_name,
+                "cat_id": ing.cat_id,
+            }
+        )
+    return jsonify({"ing_list_json": ing_list_json}), 200
+
+
+# 特定の材料を取得するAPI
+@app.route("/api/ing/<int:ing_id>", methods=["GET"])
+def get_ing(ing_id):
+    ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
+    return (
+        jsonify(
+            {
+                "ing_id": ing.ing_id,
+                "ing_name": ing.ing_name,
+                "cat_id": ing.cat_id,
+            }
+        ),
+        200,
+    )
+
+
+# 材料を登録するAPI
+@app.route("/api/ing", methods=["POST"])
+def add_ing():
+    data = request.get_json()
+    new_ing = Ingredient(ing_name=data["new_ing_name"], cat_id=data["new_ing_cat_id"])
+    existing = Ingredient.query.filter_by(ing_name=data["new_ing_name"]).first()
+    if existing:
+        return jsonify({"message": "この材料はすでに登録されています"}), 400
+    db.session.add(new_ing)
+    db.session.commit()
+    return jsonify({"message": "材料が登録されました"}), 201
+
+
+# 材料を編集するAPI
+@app.route("/api/ing/<int:ing_id>", methods=["PUT"])
+def edit_ing(ing_id):
+    data = request.get_json()
+    ing = Ingredient.query.filter_by(ing_id=ing_id).first_or_404()
+    ing.ing_name = data["ing_name"]
+    ing.cat_id = data["cat_id"]
+    db.session.commit()
+    return jsonify({"message": "材料が編集されました"}), 200
+
+
+# カテゴリーを全て取得するAPI
+@app.route("/api/getCat", methods=["GET"])
+def get_cat():
+    cat_list = Category.query.all()
+    cat_list_json = []
+    for cat in cat_list:
+        cat_list_json.append(
+            {
+                "cat_id": cat.cat_id,
+                "cat_name": cat.cat_name,
+            }
+        )
+    return jsonify({"cat_list_json": cat_list_json}), 200
+
+
+# 全ての料理を取得するAPI
+@app.route("/api/getAllDish", methods=["GET"])
+def get_all_dish():
+    dish_list = Dish.query.all()
+    dish_list_json = []
+    for dish in dish_list:
+        dish_list_json.append(
+            {
+                "dish_id": dish.dish_id,
+                "dish_name": dish.dish_name,
+            }
+        )
+    return jsonify({"dish_list_json": dish_list_json}), 200
+
+
+# 特定の料理を取得するAPI
+@app.route("/api/dish/<int:dish_id>", methods=["GET"])
+def get_dish(dish_id):
+    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    memo = dish.memo if dish.memo else ""
+    ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
+    ing_id_needed_list = []
+    for ing_dish_list in ing_dish_set_list:
+        ing_id_needed_list.append(ing_dish_list.ing_id)
+    return (
+        jsonify(
+            {
+                "dish_id": dish.dish_id,
+                "dish_name": dish.dish_name,
+                "ing_id_needed_list": ing_id_needed_list,
+                "dish_memo": memo,
+            }
+        ),
+        200,
+    )
+
+
+# 料理を登録するAPI
+@app.route("/api/dish", methods=["POST"])
+def new_dish():
+    data = request.get_json()
+    new_dish_name = data["new_dish_name"].strip()
+    if not new_dish_name:
+        return jsonify({"message": "料理名を入力してください"}), 400
+    ing_id_needed_list = data["ing_id_needed_list"]
+    if not ing_id_needed_list:
+        return jsonify({"message": "材料を選択してください"}), 400
+    existing = Dish.query.filter_by(dish_name=new_dish_name).first()
+    if existing:
+        return jsonify({"message": "その料理はすでに登録されています"}), 400
+    try:
+        new_dish = Dish(dish_name=new_dish_name)
+        db.session.add(new_dish)
+        db.session.flush()
+
+        new_dish_memo = data["new_dish_memo"].strip()
+        new_dish.memo = new_dish_memo
+
+        for ing_id_needed in ing_id_needed_list:
+            new_ing_dish_set = Ing_Dish_Set(
+                dish_id=new_dish.dish_id,
+                ing_id=int(ing_id_needed),
+            )
+            db.session.add(new_ing_dish_set)
+
+        db.session.commit()
+
+    except Exception:
+        db.session.rollback()
+        raise
+
+    return jsonify({"message": "料理が追加されました"}), 201
+
+
+# 料理を編集するAPI
+@app.route("/api/dish/<int:dish_id>", methods=["PUT"])
+def edit_dish(dish_id):
+    data = request.get_json()
+
+    dish_name = data["dish_name"].strip()
+    if not dish_name:
+        return jsonify({"message": "料理名を入力してください"}), 400
+
+    dish_memo = data["dish_memo"] if "dish_memo" in data else ""
+
+    ing_id_needed_list = data["ing_id_needed_list"]
+    if not ing_id_needed_list:
+        return jsonify({"message": "材料を選択してください"}), 400
+
+    try:
+        dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+        dish.dish_name = dish_name
+        dish.memo = dish_memo
+
+        Ing_Dish_Set.query.filter_by(dish_id=dish_id).delete(synchronize_session=False)
+
+        for ing_id_needed in ing_id_needed_list:
+            ing_dish_set = Ing_Dish_Set(
+                dish_id=dish.dish_id,
+                ing_id=int(ing_id_needed),
+            )
+            db.session.add(ing_dish_set)
+
+        db.session.commit()
+
+    except Exception:
+        db.session.rollback()
+        raise
+
+    return jsonify({"message": "料理が編集されました"}), 200
+
+
+# 料理を削除するAPI
+@app.route("/api/dish/<int:dish_id>", methods=["DELETE"])
+def delete_dish(dish_id):
+    dish = Dish.query.filter_by(dish_id=dish_id).first_or_404()
+    ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish_id).all()
+    try:
+        for ing_dish_set in ing_dish_set_list:
+            db.session.delete(ing_dish_set)
+        db.session.flush()
+        db.session.delete(dish)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        raise
+    return jsonify({"message": "料理が削除されました"}), 200
+
+
+# 料理を検索するAPI
+@app.route("/api/searchDish", methods=["POST"])
+def search_dish():
+    data = request.get_json()
+
+    searched_ing_id_list = data.get("searched_ing_id_list", [])
+    searched_ing_id_list_int = list(map(int, searched_ing_id_list))
+
+    result_list = []
+
+    for dish in Dish.query.all():
+        match_score = 0
+        ing_dish_set_list = Ing_Dish_Set.query.filter_by(dish_id=dish.dish_id).all()
+
+        for ing_dish_set in ing_dish_set_list:
+            for searched_ing_id in searched_ing_id_list_int:
+                if searched_ing_id == ing_dish_set.ing_id:
+                    match_score += 1
+                    break
+
+        if match_score > 0:
+            ing_needed = len(ing_dish_set_list)
+            lack = ing_needed - match_score
+
+            ing_id_needed_list_for_search = []
+            for ing_dish_set in ing_dish_set_list:
+                ing_id_needed_list_for_search.append(ing_dish_set.ing_id)
+
+            lack_ing_id_list = []
+            for ing_id_needed in ing_id_needed_list_for_search:
+                if ing_id_needed not in searched_ing_id_list_int:
+                    lack_ing_id_list.append(ing_id_needed)
+
+            lack_ing_name_list = []
+            for lack_ing_id in lack_ing_id_list:
+                lack_ing_name = Ingredient.query.filter_by(ing_id=lack_ing_id).first()
+                if lack_ing_name:
+                    lack_ing_name_list.append(lack_ing_name.ing_name)
+
+            match_rate = round(match_score / ing_needed * 100) if ing_needed > 0 else 0
+
+            result_list.append(
+                [
+                    dish.dish_name,
+                    match_score,
+                    lack,
+                    lack_ing_name_list,
+                    lack_ing_id_list,
+                    match_rate,
+                ]
+            )
+
+    result_list.sort(key=lambda result: result[1], reverse=True)
+
+    return jsonify({"result_list": result_list}), 200
+
+
+# 冷蔵庫に関するAPI------------------------------------------------------------------------------------------------------------
+# ログイン中のユーザーの冷蔵庫を取得するAPI
+@app.route("/api/ref", methods=["GET"])
+@login_required
+def get_refrigerator():
+    user_id = current_user.user_id
+    ings_in_ref = Refrigerator.query.filter_by(user_id=user_id).all()
+    ings_in_ref_list = []
+    for ref in ings_in_ref:
+        ings_in_ref_list.append(
+            {
+                "ing_id": ref.ing_id,
+                "ing_name": ref.ingredient.ing_name,
+                "cat_id": ref.ingredient.cat_id,
+                "added_at": ref.added_at.isoformat(),
+            }
+        )
+    return jsonify({"ings_in_ref_list_json": ings_in_ref_list})
+
+
+# 冷蔵庫に材料を追加するAPI
+@app.route("/api/ref", methods=["POST"])
+@login_required
+def add_ing_to_ref():
+    user_id = current_user.user_id
+    data = request.get_json()
+    ing_id = data["ing_id"]
+    existing = Refrigerator.query.filter_by(user_id=user_id, ing_id=ing_id).first()
+    if existing:
+        return jsonify({"message": "その材料はすでに冷蔵庫に入っています"}), 400
+    new_ing_to_ref = Refrigerator(
+        user_id=user_id, ing_id=ing_id, added_at=datetime.now()
+    )
+    db.session.add(new_ing_to_ref)
+    db.session.commit()
+    return jsonify({"message": "冷蔵庫に材料が追加されました"}), 201
+
+
+# 冷蔵庫から材料を削除するAPI
+@app.route("/api/ref/<int:ing_id>", methods=["DELETE"])
+@login_required
+def delete_ing_from_ref(ing_id):
+    user_id = current_user.user_id
+    ing = Refrigerator.query.filter_by(user_id=user_id, ing_id=ing_id).first_or_404()
+    db.session.delete(ing)
+    db.session.commit()
+    return jsonify({"message": "冷蔵庫から材料が削除されました"}), 200
+
+
+# 買い物リストを取得するAPI
+@app.route("/api/shoppingList", methods=["GET"])
+@login_required
+def get_shopping_list():
+    user_id = current_user.user_id
+    shopping_list_data = ShoppingList.query.filter_by(user_id=user_id).all()
+    shopping_list = []
+    for item in shopping_list_data:
+        shopping_list.append(
+            {
+                "ing_id": item.ing_id,
+                "ing_name": item.ingredient.ing_name,
+                "cat_id": item.ingredient.cat_id,
+            }
+        )
+    return jsonify({"shopping_list_json": shopping_list}), 200
+
+
+# 買い物リストに材料を追加するAPI
+@app.route("/api/shoppingList", methods=["POST"])
+@login_required
+def add_ing_to_shopping_list():
+    user_id = current_user.user_id
+    data = request.get_json()
+    ing_id = data["ing_id"]
+    existing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first()
+    if existing:
+        return jsonify({"message": "その材料はすでに買い物リストに入っています"}), 400
+    new_ing_to_shopping_list = ShoppingList(user_id=user_id, ing_id=ing_id)
+    db.session.add(new_ing_to_shopping_list)
+    db.session.commit()
+    return jsonify({"message": "買い物リストに材料が追加されました"}), 201
+
+
+# 買い物リストから材料を削除するAPI
+@app.route("/api/shoppingList/<int:ing_id>", methods=["DELETE"])
+@login_required
+def delete_ing_from_shopping_list(ing_id):
+    user_id = current_user.user_id
+    ing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first_or_404()
+    db.session.delete(ing)
+    db.session.commit()
+    return jsonify({"message": "買い物リストから材料が削除されました"}), 200
+
+# 買い物リストを空にするAPI
+@app.route("/api/shoppingList/clear", methods=["DELETE"])
+@login_required
+def clear_shopping_list():
+    user_id = current_user.user_id
+    ShoppingList.query.filter_by(user_id=user_id).delete()
+    db.session.commit()
+    return jsonify({"message": "買い物リストが空になりました"}), 200
+
+
+# 不足材料を買い物リストに追加するAPI
+@app.route("/api/addLackIngToShoppingList", methods=["POST"])
+@login_required
+def add_lack_ing_to_shopping_list():
+    user_id = current_user.user_id
+    data = request.get_json()
+    lack_ing_id_list = data["lack_ing_id_list"]
+    new_ing_to_shopping_list = []
+    for ing_id in lack_ing_id_list:
+        existing = ShoppingList.query.filter_by(user_id=user_id, ing_id=ing_id).first()
+        if existing:
+            continue
+        new_ing_to_shopping_list.append(ShoppingList(user_id=user_id, ing_id=ing_id))
+    if new_ing_to_shopping_list == []:
+        return jsonify({"message": "すでに買い物リストに入っています"}), 400
+    for new_ing in new_ing_to_shopping_list:
+        db.session.add(new_ing)
+    db.session.commit()
+    return jsonify({"message": "不足している材料が買い物リストに追加されました"}), 201
