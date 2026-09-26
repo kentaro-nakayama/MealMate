@@ -10,7 +10,7 @@
 
 ## アプリURL
 
-https://mealmate-kentaro-nakayama.vercel.app
+https://mealmateapp.vercel.app
 
 ## 技術構成
 
