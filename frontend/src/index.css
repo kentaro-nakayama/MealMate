@@ -466,6 +466,11 @@ textarea:focus {
     background-color: rgba(184, 131, 98, 0.15);
 }
 
+.cat-0 {
+    color: rgb(120, 120, 120);
+    background-color: rgba(120, 120, 120, 0.15);
+}
+
 @media screen and (max-width: 1000px) {
     .card-columns-container {
         grid-template-columns: repeat(2, 1fr);

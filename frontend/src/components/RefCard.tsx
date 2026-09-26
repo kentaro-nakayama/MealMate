@@ -2,6 +2,7 @@ import '../reset.css';
 import type { ingType } from '../types/type.ts';
 import PlusIcon from '../img/Plus.svg';
 import DeleteIcon from '../img/Delete.svg';
+import { getCategoryColorClass } from '../utils/categoryColor.ts';
 
 const getElaspedTime = (addedAt: string): string => {
     const addedDate = new Date(addedAt);
@@ -11,7 +12,7 @@ const getElaspedTime = (addedAt: string): string => {
     return `${elapsedDays}日前`;
 }
 
-function RefCard({ ing, catId, catName, type, onClick }:
+function RefCard({ ing, catName, type, onClick }:
     { ing: ingType, catId: number, catName: string, type: "add" | "delete", onClick: (id: number) => void }) {
     return (
         <div key={ing.ing_id} className="card">
@@ -32,7 +33,7 @@ function RefCard({ ing, catId, catName, type, onClick }:
                         </span>
                     }
                     
-                    <span className={`cat-name cat-${catId}`}>
+                    <span className={`cat-name ${getCategoryColorClass(catName)}`}>
                         {catName}
                     </span>
 

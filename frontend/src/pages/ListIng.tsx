@@ -10,6 +10,7 @@ import type { ingType, catType } from '../types/type.ts';
 import Select from '../components/Select.tsx';
 import Input from '../components/Input.tsx';
 import LoadingSpinner from '../components/LoadingSpinner.tsx';
+import { getCategoryColorClass } from '../utils/categoryColor.ts';
 //context
 import { Link } from "react-router-dom";
 //icons
@@ -93,7 +94,6 @@ function ListIng() {
                             .sort((a, b) => a.cat_id - b.cat_id)
                             .map((ing: ingType) => {
                                 const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
                                 return (
                                     <div key={ing.ing_id} className="card">
                                         <div className='card-row'>
@@ -101,7 +101,7 @@ function ListIng() {
                                                 {ing.ing_name}
                                             </p>
                                             <div className='card-right'>
-                                                <span className={`cat-name cat-${catId}`}>
+                                                <span className={`cat-name ${getCategoryColorClass(catName)}`}>
                                                     {catName}
                                                 </span>
                                                 <Link
