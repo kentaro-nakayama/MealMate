@@ -17,10 +17,18 @@ body {
 
 .main {
     min-height: 80vh;
-    margin: 0 auto;
-    padding: 20px 40px;
-    background-color: #f7f7f4;
-    backdrop-filter: blur(4px);
+    margin: 0 24px 24px;
+    padding: 24px 32px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.main.login-page,
+.main.signup-page {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
 }
 
 .contents-area {
@@ -599,7 +607,8 @@ textarea:focus {
 
 @media screen and (max-width: 700px) {
     .main {
-        padding: 10px 20px;
+        margin: 0 12px 12px;
+        padding: 16px 18px;
         min-height: none;
     }
 
@@ -1086,7 +1095,7 @@ select:focus {
 
 /* layout.css */
 header {
-    padding-top: 5px;
+    padding: 20px 24px 0;
     z-index: 100;
     background-color: #f7f7f4;
 }
@@ -1116,8 +1125,17 @@ header {
     display: flex;
     align-items: center;
     gap: 24px;
-    margin-left: 15px;
-    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    padding: 14px 24px;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 701px) {
+    .logout-btn {
+        margin-right: 0;
+    }
 }
 
 .header-actions {
@@ -1257,7 +1275,8 @@ nav a.active::after {
     }
 
     .header-row {
-        margin-bottom: 0px;
+        margin-bottom: 12px;
+        padding: 10px 16px;
     }
 
     .title-icon {
