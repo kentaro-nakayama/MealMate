@@ -1,40 +1,45 @@
 //css
-import '../reset.css';
+import "../reset.css";
 //react
 import { Fragment, useEffect, useState } from "react";
 //api
-import { getAllIng, getCat, getShoppingList, addIngToShoppingList, deleteIngFromShoppingList, clearShoppingList } from '../api/api.js';
+import {
+    getAllIng,
+    getCat,
+    getShoppingList,
+    addIngToShoppingList,
+    deleteIngFromShoppingList,
+    clearShoppingList,
+} from "../api/api.js";
 //types
-import type { ingType, catType } from '../types/type.ts';
+import type { ingType, catType } from "../types/type.ts";
 //components
-import CategoryChips from '../components/CategoryChips.tsx';
-import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
-import Input from '../components/Input.tsx';
-import ShoppingCard from '../components/ShoppingCard.tsx';
-import LoadingSpinner from '../components/LoadingSpinner.tsx';
-import { groupByCategory } from '../utils/groupByCategory.ts';
+import CategoryChips from "../components/CategoryChips.tsx";
+import CategorySectionHeader from "../components/CategorySectionHeader.tsx";
+import Input from "../components/Input.tsx";
+import ShoppingCard from "../components/ShoppingCard.tsx";
+import LoadingSpinner from "../components/LoadingSpinner.tsx";
+import { groupByCategory } from "../utils/groupByCategory.ts";
 //context
-import { useNotification } from '../context/useNotification';
-import { getErrorMessage } from '../utils/error.ts';
-import { ShoppingCart } from 'lucide-react';
+import { useNotification } from "../context/useNotification";
+import { getErrorMessage } from "../utils/error.ts";
+import { ShoppingCart } from "lucide-react";
 //icons
-import { Check } from 'lucide-react';
-import PlusIcon from '../img/Plus.svg';
-import CheckIcon from '../img/Check.svg';
-
+import { Check } from "lucide-react";
+import PlusIcon from "../img/Plus.svg";
+import CheckIcon from "../img/Check.svg";
 
 function ShoppingList() {
-
     const [ingData, setIngData] = useState<ingType[]>([]);
     const [catData, setCatData] = useState<catType[]>([]);
     const [showCatId, setShowCatId] = useState("");
     const [searchWord, setSearchWord] = useState(""); //検索文字
     const [isOpenShoppingList, setIsOpenShoppingList] = useState<boolean>(true); //買い物リストの開閉状態
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 700); //画面サイズが700px以下かどうか
-    const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料   
+    const [shoppingList, setShoppingList] = useState<ingType[]>([]); //買い物リストにある材料
     const [firstLoading, setFirstLoading] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const shoppingListIngIdSet = new Set(shoppingList.map(ing => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
+    const shoppingListIngIdSet = new Set(shoppingList.map((ing) => ing.ing_id)); //買い物リストにある材料IDのセット（重複なし）
     const { showNotification } = useNotification();
 
     //ローディング表示
@@ -60,7 +65,7 @@ function ShoppingList() {
 
     if (firstLoading) {
         return <LoadingSpinner />;
-    };
+    }
 
     //全ての材料を取得
     const fetchGetAllIng = async () => {
@@ -76,14 +81,16 @@ function ShoppingList() {
 
     //検索とカテゴリー絞り込み
     const filteredIngData = ingData.filter((ing: ingType) => {
-        const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchCategory =
+            showCatId === "" || ing.cat_id === Number(showCatId);
         const matchSearch = ing.ing_name.includes(searchWord.trim());
         const notInShoppingList = !shoppingListIngIdSet.has(ing.ing_id); //買い物リストにない材料のみ表示
         return matchCategory && matchSearch && notInShoppingList;
     });
 
     const filteredShoppingList = shoppingList.filter((ing: ingType) => {
-        const matchCategory = showCatId === "" || ing.cat_id === Number(showCatId);
+        const matchCategory =
+            showCatId === "" || ing.cat_id === Number(showCatId);
         const matchSearch = ing.ing_name.includes(searchWord.trim());
         return matchCategory && matchSearch;
     });
@@ -104,7 +111,7 @@ function ShoppingList() {
             showNotification("error", getErrorMessage(error));
             return;
         }
-    }
+    };
 
     //買い物リストから材料を削除して冷蔵庫に入れる
     const handleDeleteIngFromShoppingList = async (ing_id: number) => {
@@ -116,7 +123,7 @@ function ShoppingList() {
             showNotification("error", getErrorMessage(error));
             return;
         }
-    }
+    };
 
     //買い物リストを空にする
     const handleClearShoppingList = async () => {
@@ -131,11 +138,14 @@ function ShoppingList() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="main shopping-list-page">
-            <h2><ShoppingCart className='h2-icon' />買い物リスト</h2>
+            <h2>
+                <ShoppingCart className="h2-icon" />
+                買い物リスト
+            </h2>
             <hr />
             <div className="contents-area">
                 <div className="input-area">
@@ -143,15 +153,18 @@ function ShoppingList() {
                         <Input
                             word={searchWord}
                             setWord={setSearchWord}
-                            placeholder="材料名を検索"
+                            placeholder="材料を検索"
                         />
                     </div>
                     <button
-                    onClick={handleClearShoppingList}
-                    disabled={loading || shoppingList.length === 0}
-                    className='btn clear-shopping-list-btn'>
-                        <Check className='icon-in-btn'/>
-                        {loading ? "空にしています..." : "買い物リストを空にする"}
+                        onClick={handleClearShoppingList}
+                        disabled={loading || shoppingList.length === 0}
+                        className="btn clear-shopping-list-btn"
+                    >
+                        <Check className="icon-in-btn" />
+                        {loading
+                            ? "空にしています..."
+                            : "買い物リストを空にする"}
                     </button>
                 </div>
                 <CategoryChips
@@ -159,84 +172,118 @@ function ShoppingList() {
                     setShowCatId={setShowCatId}
                     catData={catData}
                 />
-                <div className='tabs'>
+                <div className="tabs">
                     <button
-                        className={!isOpenShoppingList ? 'tab active not-in-ref' : 'tab'}
+                        className={
+                            !isOpenShoppingList
+                                ? "tab active not-in-ref"
+                                : "tab"
+                        }
                         onClick={() => setIsOpenShoppingList(false)}
                     >
                         材料一覧
                     </button>
                     <button
-                        className={isOpenShoppingList ? 'tab active in-shopping-list' : 'tab'}
+                        className={
+                            isOpenShoppingList
+                                ? "tab active in-shopping-list"
+                                : "tab"
+                        }
                         onClick={() => setIsOpenShoppingList(true)}
                     >
                         買い物リスト
                     </button>
                 </div>
-                <div className='two-columns-container'>
-                    <div className={
-                        isMobile
-                            ? (isOpenShoppingList ? 'ing-list hidden' : 'ing-list')
-                            : 'ing-list'
-                    }>
+                <div className="two-columns-container">
+                    <div
+                        className={
+                            isMobile
+                                ? isOpenShoppingList
+                                    ? "ing-list hidden"
+                                    : "ing-list"
+                                : "ing-list"
+                        }
+                    >
                         <section className="ing-list">
-                            <div className='card-header'>
+                            <div className="card-header">
                                 材料一覧
-                                <span className='length'>{filteredIngData.length}</span>
-                                <span className='icon-hint'>
+                                <span className="length">
+                                    {filteredIngData.length}
+                                </span>
+                                <span className="icon-hint">
                                     <img src={PlusIcon} alt="追加" />
                                     買い物リストに追加
                                 </span>
                             </div>
                             <div className="shopping-columns-container">
-                                {groupByCategory(filteredIngData, catData).map((group) => (
-                                    <Fragment key={group.catId}>
-                                        <CategorySectionHeader catName={group.catName} count={group.items.length} />
-                                        {group.items.map((ing: ingType) => (
-                                            <ShoppingCard
-                                                key={ing.ing_id}
-                                                ing={ing}
-                                                catId={group.catId}
+                                {groupByCategory(filteredIngData, catData).map(
+                                    (group) => (
+                                        <Fragment key={group.catId}>
+                                            <CategorySectionHeader
                                                 catName={group.catName}
-                                                type="add"
-                                                onClick={handleAddIngToShoppingList}
+                                                count={group.items.length}
                                             />
-                                        ))}
-                                    </Fragment>
-                                ))}
+                                            {group.items.map((ing: ingType) => (
+                                                <ShoppingCard
+                                                    key={ing.ing_id}
+                                                    ing={ing}
+                                                    catId={group.catId}
+                                                    catName={group.catName}
+                                                    type="add"
+                                                    onClick={
+                                                        handleAddIngToShoppingList
+                                                    }
+                                                />
+                                            ))}
+                                        </Fragment>
+                                    ),
+                                )}
                             </div>
                         </section>
                     </div>
-                    <div className={
-                        isMobile
-                            ? (!isOpenShoppingList ? 'shopping-list hidden' : 'shopping-list')
-                            : 'shopping-list'
-                    }>
+                    <div
+                        className={
+                            isMobile
+                                ? !isOpenShoppingList
+                                    ? "shopping-list hidden"
+                                    : "shopping-list"
+                                : "shopping-list"
+                        }
+                    >
                         <section className="shopping-list blue">
-                            <div className='card-header blue'>
+                            <div className="card-header blue">
                                 買い物リスト
-                                <span className='length'>{filteredShoppingList.length}</span>
-                                <span className='icon-hint'>
+                                <span className="length">
+                                    {filteredShoppingList.length}
+                                </span>
+                                <span className="icon-hint">
                                     <img src={CheckIcon} alt="購入済み" />
                                     購入済みにする
                                 </span>
                             </div>
                             <div className="shopping-columns-container">
-                                {filteredShoppingList
-                                    .map((ing: ingType) => {
-                                        const catName = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_name || "";
-                                        const catId = catData.find((cat) => cat.cat_id === ing.cat_id)?.cat_id || 0;
-                                        return (
-                                            <ShoppingCard
-                                                key={ing.ing_id}
-                                                ing={ing}
-                                                catId={catId}
-                                                catName={catName}
-                                                type="delete"
-                                                onClick={handleDeleteIngFromShoppingList}
-                                            />
-                                        )
-                                    })}
+                                {filteredShoppingList.map((ing: ingType) => {
+                                    const catName =
+                                        catData.find(
+                                            (cat) => cat.cat_id === ing.cat_id,
+                                        )?.cat_name || "";
+                                    const catId =
+                                        catData.find(
+                                            (cat) => cat.cat_id === ing.cat_id,
+                                        )?.cat_id || 0;
+                                    return (
+                                        <ShoppingCard
+                                            key={ing.ing_id}
+                                            ing={ing}
+                                            catId={catId}
+                                            catName={catName}
+                                            type="delete"
+                                            onClick={
+                                                handleDeleteIngFromShoppingList
+                                            }
+                                        />
+                                    );
+                                })}
                             </div>
                         </section>
                     </div>

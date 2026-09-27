@@ -342,7 +342,7 @@ def new_dish():
     data = request.get_json()
     new_dish_name = data["new_dish_name"].strip()
     if not new_dish_name:
-        return jsonify({"message": "料理名を入力してください"}), 400
+        return jsonify({"message": "料理の名前を入力してください"}), 400
     ing_id_needed_list = data["ing_id_needed_list"]
     if not ing_id_needed_list:
         return jsonify({"message": "材料を選択してください"}), 400
@@ -380,7 +380,7 @@ def edit_dish(dish_id):
 
     dish_name = data["dish_name"].strip()
     if not dish_name:
-        return jsonify({"message": "料理名を入力してください"}), 400
+        return jsonify({"message": "料理の名前を入力してください"}), 400
 
     dish_memo = data["dish_memo"] if "dish_memo" in data else ""
 

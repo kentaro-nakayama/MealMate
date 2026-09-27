@@ -1,27 +1,26 @@
 //css
-import '../reset.css';
+import "../reset.css";
 //react
 import { useState, useEffect } from "react";
 //api
-import { getCat, addIng } from '../api/api.js';
+import { getCat, addIng } from "../api/api.js";
 //types
-import type { catType } from '../types/type.ts';
+import type { catType } from "../types/type.ts";
 //components
-import Select from '../components/Select.tsx';
-import Input from '../components/Input.tsx';
+import Select from "../components/Select.tsx";
+import Input from "../components/Input.tsx";
 //context
-import { useNotification } from '../context/useNotification';
-import { getErrorMessage } from '../utils/error.ts';
+import { useNotification } from "../context/useNotification";
+import { getErrorMessage } from "../utils/error.ts";
 //icons
-import { Plus } from 'lucide-react';
+import { Plus } from "lucide-react";
 
 function AddIng() {
     const { showNotification } = useNotification();
     const [catData, setCatData] = useState<catType[]>([]);
-    const [newIngName, setNewIngName] = useState<string>('');
-    const [newIngCatId, setNewIngCatId] = useState<string>('');
+    const [newIngName, setNewIngName] = useState<string>("");
+    const [newIngCatId, setNewIngCatId] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-
 
     useEffect(() => {
         fetchGetCat();
@@ -38,7 +37,7 @@ function AddIng() {
         setLoading(true);
         const trimmednewIngName = newIngName.trim();
         if (!trimmednewIngName) {
-            showNotification("error", "材料名を入力してください");
+            showNotification("error", "材料の名前を入力してください");
             setLoading(false);
             return;
         }
@@ -50,8 +49,8 @@ function AddIng() {
         try {
             await addIng(trimmednewIngName, Number(newIngCatId));
             showNotification("success", "材料が追加されました");
-            setNewIngName('');
-            setNewIngCatId('');
+            setNewIngName("");
+            setNewIngCatId("");
         } catch (error) {
             showNotification("error", getErrorMessage(error));
             return;
@@ -62,7 +61,10 @@ function AddIng() {
 
     return (
         <div className="main add-ing-page">
-            <h2><Plus className='h2-icon' />材料を追加</h2>
+            <h2>
+                <Plus className="h2-icon" />
+                材料を追加
+            </h2>
             <hr />
             <div className="contents-area">
                 <form onSubmit={handleNewIng}>
@@ -71,7 +73,7 @@ function AddIng() {
                             <Input
                                 word={newIngName}
                                 setWord={setNewIngName}
-                                placeholder="材料名を入力"
+                                placeholder="材料の名前を入力"
                             />
                             <Select
                                 showCatId={newIngCatId}
@@ -79,8 +81,18 @@ function AddIng() {
                                 catData={catData}
                             />
                         </div>
-                        <button type="submit" disabled={loading} className='btn add-ing-btn'>
-                            {loading ? "追加中..." : <><Plus className='icon-in-btn' /> 追加</>}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn add-ing-btn"
+                        >
+                            {loading ? (
+                                "追加中..."
+                            ) : (
+                                <>
+                                    <Plus className="icon-in-btn" /> 追加
+                                </>
+                            )}
                         </button>
                     </div>
                 </form>

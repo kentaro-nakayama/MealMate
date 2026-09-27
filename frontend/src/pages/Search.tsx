@@ -1,23 +1,23 @@
 //css
-import '../reset.css';
+import "../reset.css";
 //react
 import { Fragment, useState, useEffect } from "react";
 //api
-import { getAllIng, getCat, searchDish } from '../api/api.js';
+import { getAllIng, getCat, searchDish } from "../api/api.js";
 //types
 import type { ingType, catType } from "../types/type.ts";
 //components
-import CategoryChips from '../components/CategoryChips.tsx';
-import CategorySectionHeader from '../components/CategorySectionHeader.tsx';
-import Input from '../components/Input.tsx';
-import IngCardCheckboxType from '../components/IngCardCheckboxType.tsx';
-import { groupByCategory } from '../utils/groupByCategory.ts';
+import CategoryChips from "../components/CategoryChips.tsx";
+import CategorySectionHeader from "../components/CategorySectionHeader.tsx";
+import Input from "../components/Input.tsx";
+import IngCardCheckboxType from "../components/IngCardCheckboxType.tsx";
+import { groupByCategory } from "../utils/groupByCategory.ts";
 //context
-import { useNotification } from '../context/useNotification';
-import { getErrorMessage } from '../utils/error.ts';
+import { useNotification } from "../context/useNotification";
+import { getErrorMessage } from "../utils/error.ts";
 import { useNavigate } from "react-router-dom";
 //icons
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon } from "lucide-react";
 
 function Search() {
     const [selectedIngIds, setSelectedIngIds] = useState<number[]>([]);
@@ -89,7 +89,7 @@ function Search() {
                 },
             });
         } catch (error) {
-            window.scrollTo({ top: 0, behavior: "smooth" });    
+            window.scrollTo({ top: 0, behavior: "smooth" });
             showNotification("error", getErrorMessage(error));
         } finally {
             setLoading(false);
@@ -99,26 +99,38 @@ function Search() {
     const filteredIngData = ingData.filter((ing: ingType) => {
         const matchCategory =
             showCatId === "" || ing.cat_id === Number(showCatId);
-        const matchSearch =
-            ing.ing_name.includes(searchWord.trim());
+        const matchSearch = ing.ing_name.includes(searchWord.trim());
         return matchCategory && matchSearch;
     });
 
     return (
         <div className="main search-page">
-            <h2><SearchIcon className='h2-icon' />検索</h2>
+            <h2>
+                <SearchIcon className="h2-icon" />
+                検索
+            </h2>
             <hr />
             <div className="contents-area">
                 <div className="input-area">
-                    <div className='input-area-for-mb'>
+                    <div className="input-area-for-mb">
                         <Input
                             word={searchWord}
                             setWord={setSearchWord}
-                            placeholder="材料名を検索"
+                            placeholder="材料を検索"
                         />
                     </div>
-                    <button onClick={handleSearch} disabled={loading} className='btn search-btn'>
-                        {loading ? "検索中..." : <><SearchIcon className='icon-in-btn' /> 検索</>}
+                    <button
+                        onClick={handleSearch}
+                        disabled={loading}
+                        className="btn search-btn"
+                    >
+                        {loading ? (
+                            "検索中..."
+                        ) : (
+                            <>
+                                <SearchIcon className="icon-in-btn" /> 検索
+                            </>
+                        )}
                     </button>
                 </div>
                 <CategoryChips
@@ -128,49 +140,61 @@ function Search() {
                 />
                 <div>
                     {selectedIngIds.length > 0 && (
-                        <section className='selected-ings ing-list'>
-                            <div className='card-header'>
+                        <section className="selected-ings ing-list">
+                            <div className="card-header">
                                 選択中の材料
-                                <span className='length'>{selectedIngIds.length}</span>
+                                <span className="length">
+                                    {selectedIngIds.length}
+                                </span>
                             </div>
-                            <div className='card-columns-container selected-ings-container'>
+                            <div className="card-columns-container selected-ings-container">
                                 {selectedIngIds.map((id) => {
-                                    const ing = ingData.find((ing) => ing.ing_id === id);
-                                    return ing
-                                        ?
+                                    const ing = ingData.find(
+                                        (ing) => ing.ing_id === id,
+                                    );
+                                    return ing ? (
                                         <IngCardCheckboxType
                                             key={ing.ing_id}
                                             ing={ing}
                                             catData={catData}
                                             selectedIngIds={selectedIngIds}
-                                            handleCheckboxChange={handleCheckboxChange}
+                                            handleCheckboxChange={
+                                                handleCheckboxChange
+                                            }
                                         />
-                                        : null;
+                                    ) : null;
                                 })}
                             </div>
                         </section>
                     )}
                 </div>
-                <section className='ing-list'>
-                    <div className='card-header'>
+                <section className="ing-list">
+                    <div className="card-header">
                         材料一覧
-                        <span className='length'>{filteredIngData.length}</span>
+                        <span className="length">{filteredIngData.length}</span>
                     </div>
                     <div className="card-columns-container">
-                        {groupByCategory(filteredIngData, catData).map((group) => (
-                            <Fragment key={group.catId}>
-                                <CategorySectionHeader catName={group.catName} count={group.items.length} />
-                                {group.items.map((ing: ingType) => (
-                                    <IngCardCheckboxType
-                                        key={ing.ing_id}
-                                        ing={ing}
-                                        catData={catData}
-                                        selectedIngIds={selectedIngIds}
-                                        handleCheckboxChange={handleCheckboxChange}
+                        {groupByCategory(filteredIngData, catData).map(
+                            (group) => (
+                                <Fragment key={group.catId}>
+                                    <CategorySectionHeader
+                                        catName={group.catName}
+                                        count={group.items.length}
                                     />
-                                ))}
-                            </Fragment>
-                        ))}
+                                    {group.items.map((ing: ingType) => (
+                                        <IngCardCheckboxType
+                                            key={ing.ing_id}
+                                            ing={ing}
+                                            catData={catData}
+                                            selectedIngIds={selectedIngIds}
+                                            handleCheckboxChange={
+                                                handleCheckboxChange
+                                            }
+                                        />
+                                    ))}
+                                </Fragment>
+                            ),
+                        )}
                     </div>
                 </section>
             </div>

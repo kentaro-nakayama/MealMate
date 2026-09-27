@@ -56,7 +56,7 @@ function ListDish() {
                         <Input
                             word={search}
                             setWord={setSearch}
-                            placeholder="料理名を検索"
+                            placeholder="料理を検索"
                         />
                     </div>
                     <Link to="/list_dish/add" className='btn to-add-dish-btn'><Plus className='icon-in-btn' />料理を追加</Link>

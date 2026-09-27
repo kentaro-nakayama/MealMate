@@ -1,28 +1,28 @@
 //css
-import '../reset.css';
+import "../reset.css";
 //react
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 //api
-import { getCat, getIng, editIng } from '../api/api.js';
+import { getCat, getIng, editIng } from "../api/api.js";
 //types
-import type { catType } from '../types/type.ts';
+import type { catType } from "../types/type.ts";
 //components
-import Select from '../components/Select.tsx';
-import Input from '../components/Input.tsx';
+import Select from "../components/Select.tsx";
+import Input from "../components/Input.tsx";
 //context
-import { useNotification } from '../context/useNotification';
-import { getErrorMessage } from '../utils/error.ts';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNotification } from "../context/useNotification";
+import { getErrorMessage } from "../utils/error.ts";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 //icons
-import { Pencil } from 'lucide-react';
+import { Pencil } from "lucide-react";
 
 function EditIng() {
     const { ing_id } = useParams();
     // URLの動的な部分をオブジェクトで取得し，分割代入でing_idに代入．
     // (ex)ing_id = "2".
-    const [editedIngName, setEditedIngName] = useState<string>('');
-    const [editedIngCatId, setEditedIngCatId] = useState<string>('');
+    const [editedIngName, setEditedIngName] = useState<string>("");
+    const [editedIngCatId, setEditedIngCatId] = useState<string>("");
     const [catData, setCatData] = useState<catType[]>([]);
     const { showNotification } = useNotification();
     const [loading, setLoading] = useState<boolean>(false);
@@ -51,7 +51,7 @@ function EditIng() {
         setLoading(true);
         const trimmedEditedIngName = editedIngName.trim();
         if (!trimmedEditedIngName) {
-            showNotification("error", "材料名を入力してください");
+            showNotification("error", "材料の名前を入力してください");
             setLoading(false);
             return;
         }
@@ -61,11 +61,15 @@ function EditIng() {
             return;
         }
         try {
-            await editIng(Number(ing_id), trimmedEditedIngName, Number(editedIngCatId));
+            await editIng(
+                Number(ing_id),
+                trimmedEditedIngName,
+                Number(editedIngCatId),
+            );
             showNotification("success", "材料が編集されました");
-            setEditedIngName('');
-            setEditedIngCatId('');
-            navigate('/list_ing');
+            setEditedIngName("");
+            setEditedIngCatId("");
+            navigate("/list_ing");
         } catch (error) {
             showNotification("error", getErrorMessage(error));
             return;
@@ -74,10 +78,12 @@ function EditIng() {
         }
     };
 
-
     return (
         <div className="main edit-ing-page">
-            <h2><Pencil className='h2-icon'/>材料を編集</h2>
+            <h2>
+                <Pencil className="h2-icon" />
+                材料を編集
+            </h2>
             <hr />
             <div className="contents-area">
                 <form onSubmit={handleEditedIng}>
@@ -86,7 +92,7 @@ function EditIng() {
                             <Input
                                 word={editedIngName}
                                 setWord={setEditedIngName}
-                                placeholder="材料名を入力"
+                                placeholder="材料の名前を入力"
                             />
                             <Select
                                 showCatId={editedIngCatId}
@@ -94,8 +100,19 @@ function EditIng() {
                                 catData={catData}
                             />
                         </div>
-                        <button type="submit" disabled={loading} className='btn edit-ing-btn'>
-                            {loading ? "更新中..." : <><Pencil className='icon-in-btn' />更新</>}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn edit-ing-btn"
+                        >
+                            {loading ? (
+                                "更新中..."
+                            ) : (
+                                <>
+                                    <Pencil className="icon-in-btn" />
+                                    更新
+                                </>
+                            )}
                         </button>
                     </div>
                 </form>

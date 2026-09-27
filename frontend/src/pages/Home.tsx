@@ -111,15 +111,15 @@ function Home() {
                                                     {possibleDish[5]}<span className='match-badge-pct'>%</span>
                                                 </span>
                                             </div>
-                                            <p className='lack-ing_list'>
-                                                {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
-                                            </p>
                                             <div className='match-bar-track'>
                                                 <div
                                                     className={`match-bar-fill ${getMatchRateClass(possibleDish[5])}`}
                                                     style={{ width: `${possibleDish[5]}%` }}
                                                 ></div>
                                             </div>
+                                            <p className='lack-ing_list'>
+                                                {possibleDish[2] === 0 ? "不足なし" : `不足材料: ${possibleDish[3].join(", ")}`}
+                                            </p>
                                             <a
                                                 href={`https://www.google.com/search?q=${encodeURIComponent(possibleDish[0] + ' レシピ')}`}
                                                 target="_blank"
