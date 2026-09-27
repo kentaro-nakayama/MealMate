@@ -304,6 +304,42 @@ section .card {
     border: 1px solid #d5d5d5;
 }
 
+/* 料理一覧のカードを、編集ボタンと同じ茶色で交互に色分け */
+.list-dish-page .card:nth-child(even) {
+    background-color: rgba(213, 180, 135, 0.12);
+}
+
+/* 材料一覧のカードは、白とカテゴリーごとのテーマカラーを交互に色分け */
+/* (汎用の.cat-1〜6は文字色付きのバッジ用スタイルのため、カード自体には
+   card-cat-1〜6という別名を使い、非alt時は明示的に白へ戻す) */
+.list-ing-page .card[class*="card-cat-"] {
+    background-color: #fff;
+}
+
+.list-ing-page .card.card-cat-1.alt {
+    background-color: rgba(96, 165, 66, 0.06);
+}
+
+.list-ing-page .card.card-cat-2.alt {
+    background-color: rgba(255, 104, 87, 0.06);
+}
+
+.list-ing-page .card.card-cat-3.alt {
+    background-color: rgba(0, 195, 255, 0.08);
+}
+
+.list-ing-page .card.card-cat-4.alt {
+    background-color: rgba(255, 161, 80, 0.08);
+}
+
+.list-ing-page .card.card-cat-5.alt {
+    background-color: rgba(255, 192, 255, 0.15);
+}
+
+.list-ing-page .card.card-cat-6.alt {
+    background-color: rgba(184, 131, 98, 0.07);
+}
+
 section .card:active {
     transition: all 0.2s ease;
     transform: scale(1.02);

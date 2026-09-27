@@ -103,8 +103,11 @@ function ListIng() {
                                         catName={group.catName}
                                         count={group.items.length}
                                     />
-                                    {group.items.map((ing) => (
-                                        <div key={ing.ing_id} className="card">
+                                    {group.items.map((ing, idx) => (
+                                        <div
+                                            key={ing.ing_id}
+                                            className={`card card-${getCategoryColorClass(group.catName)}${idx % 2 === 1 ? " alt" : ""}`}
+                                        >
                                             <div className="card-row">
                                                 <p className="name">
                                                     {ing.ing_name}
