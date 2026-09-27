@@ -12,9 +12,11 @@
 - **材料・料理の検索/一覧**: カテゴリごとに色分けされた一覧から，材料・料理を検索できる
 - **ユーザー認証・アカウント管理**: サインアップ/ログイン/ログアウトに加え，ユーザー情報の編集，アカウント削除（紐づくデータの一括削除）に対応
 
-## 主な画面
+## 画面紹介
 
-- ホーム
+### ホーム
+
+冷蔵庫に登録した材料から作れる料理を一致率順に提案する。一致率はバッジと帯グラフで表示し、一致率の高さに応じて緑（高）・オレンジ（中）・茶（低）に色分けされる。右側のサマリーで、冷蔵庫の材料数・賞味期限が近い材料数・買い物リストの材料数をひと目で確認できる。
 
 <table>
 <tr>
@@ -27,46 +29,9 @@
 </tr>
 </table>
 
-- 材料一覧
+### 冷蔵庫
 
-<table>
-<tr>
-<th>PC</th>
-<th>スマホ</th>
-</tr>
-<tr>
-<td><img src="./docs/Listing.png" height="350px"></td>
-<td><img src="./docs/Listing_mb.png" height="350px"></td>
-</tr>
-</table>
-
-- 料理一覧
-
-<table>
-<tr>
-<th>PC</th>
-<th>スマホ</th>
-</tr>
-<tr>
-<td><img src="./docs/Listdish.png" height="350px"></td>
-<td><img src="./docs/Listdish_mb.png" height="350px"></td>
-</tr>
-</table>
-
-- 検索
-
-<table>
-<tr>
-<th>PC</th>
-<th>スマホ</th>
-</tr>
-<tr>
-<td><img src="./docs/Search.png" height="350px"></td>
-<td><img src="./docs/Search_mb.png" height="350px"></td>
-</tr>
-</table>
-
-- 冷蔵庫
+冷蔵庫にある材料を登録・管理する画面。カテゴリーボタンで材料を絞り込みながら「冷蔵庫にない材料」から追加でき、登録済みの材料は追加日とともに一覧表示され、不要になった材料は削除できる（スマホでは2つのリストをタブで切り替え）。
 
 <table>
 <tr>
@@ -79,7 +44,54 @@
 </tr>
 </table>
 
-- 買い物リスト
+### 検索
+
+手持ちの材料を自由に選んで、それらで作れる料理を検索できる。選択中の材料はカードで表示され、いつでも選択を解除できる。検索結果は一致率順に並び、不足材料はそのまま買い物リストに追加できる。
+
+<table>
+<tr>
+<th>PC</th>
+<th>スマホ</th>
+</tr>
+<tr>
+<td><img src="./docs/Search.png" height="350px"></td>
+<td><img src="./docs/Search_mb.png" height="350px"></td>
+</tr>
+</table>
+
+### 材料一覧
+
+登録されている全材料をカテゴリー別に一覧表示する。カテゴリーごとのテーマカラーでカードが交互に色分けされ、見やすく整理されている。「材料を編集」から各材料の名前やカテゴリーの編集・削除ができる。
+
+<table>
+<tr>
+<th>PC</th>
+<th>スマホ</th>
+</tr>
+<tr>
+<td><img src="./docs/Listing.png" height="350px"></td>
+<td><img src="./docs/Listing_mb.png" height="350px"></td>
+</tr>
+</table>
+
+### 料理一覧
+
+登録されている料理を一覧表示する。カードは編集ボタンと同じ茶色で交互に色分けされ、「料理を編集」から料理名・使用材料（カテゴリーボタンで絞り込み可能）・メモを編集できる。
+
+<table>
+<tr>
+<th>PC</th>
+<th>スマホ</th>
+</tr>
+<tr>
+<td><img src="./docs/Listdish.png" height="350px"></td>
+<td><img src="./docs/Listdish_mb.png" height="350px"></td>
+</tr>
+</table>
+
+### 買い物リスト
+
+不足している材料を買い物リストに追加し、まとめて管理する画面。購入した材料にチェックを入れて「購入済みにする」ことで、まとめてリストから取り除ける。
 
 <table>
 <tr>
