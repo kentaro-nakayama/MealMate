@@ -159,7 +159,7 @@ function Refrigerator() {
                     <button onClick={handleSearch} disabled={loading}
                         className='btn search-from-ref-btn'>
                         <SearchIcon className='icon-in-btn' />
-                        {loading ? "検索中..." : "冷蔵庫の材料から料理を検索"}
+                        {loading ? "検索中..." : "検索"}
                     </button>
                 </div>
                 <CategoryChips

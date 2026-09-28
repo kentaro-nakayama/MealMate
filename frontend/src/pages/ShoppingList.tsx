@@ -164,7 +164,7 @@ function ShoppingList() {
                         <Check className="icon-in-btn" />
                         {loading
                             ? "空にしています..."
-                            : "買い物リストを空にする"}
+                            : "リストを空にする"}
                     </button>
                 </div>
                 <CategoryChips

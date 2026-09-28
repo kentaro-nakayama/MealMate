@@ -15,7 +15,7 @@ body {
 }
 
 .main {
-    min-height: 80vh;
+    min-height: 85vh;
     margin: 0 24px 24px;
     padding: 24px 32px;
     background-color: #fff;
@@ -712,7 +712,7 @@ textarea:focus {
 
 @media screen and (max-width: 700px) {
     .main {
-        margin: 0 12px 12px;
+        margin: 12px;
         padding: 16px 18px;
         min-height: none;
     }
@@ -732,14 +732,31 @@ textarea:focus {
     }
 
     .input-area {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 10px;
         margin-bottom: 20px;
     }
 
     .input-area-for-mb {
         display: flex;
+        flex: 1;
+        min-width: 0;
         gap: 10px;
-        margin-bottom: 10px;
+    }
+
+    .input-area > .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        height: 32px;
+        min-width: 0;
+        flex-shrink: 0;
+    }
+
+    .input-area > .btn .icon-in-btn {
+        margin-bottom: 0;
     }
 
     .card-columns-container {
@@ -1293,27 +1310,22 @@ nav a.active::after {
 /* 700px以下は画面下部のアイコンタブバーに切り替え */
 @media (max-width: 700px) {
     header {
-        padding: 10px 12px;
+        padding: 0;
         position: relative;
     }
 
+    /* ロゴ・ログアウトボタンなどのヘッダー部分は非表示にし、ナビゲーションのみ画面下部のタブバーとして残す */
     .header-row {
-        margin-bottom: 4px;
-        padding: 10px 16px 10px 4px;
+        margin: 0;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+        border-radius: 0;
     }
 
-    .title-icon {
-        width: 180px;
-    }
-
-    h1 {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .logout-btn {
-        margin-left: 12px;
-        margin-right: 0;
+    h1,
+    .header-actions {
+        display: none;
     }
 
     nav {

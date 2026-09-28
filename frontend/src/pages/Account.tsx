@@ -3,13 +3,13 @@ import '../reset.css';
 //react
 import { useState, useEffect } from 'react';
 //api
-import { getUser, editUser, deleteUser } from '../api/api.js';
+import { getUser, editUser, deleteUser, logout } from '../api/api.js';
 //context
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
 //icons
-import { UserCog, Trash2, TriangleAlert } from 'lucide-react';
+import { UserCog, Trash2, TriangleAlert, LogOut } from 'lucide-react';
 
 function Account() {
     const [username, setUsername] = useState<string>('');
@@ -46,6 +46,17 @@ function Account() {
             return;
         } finally {
             setLoading(false);
+        }
+    };
+
+    //ログアウト
+    const fetchLogout = async () => {
+        try {
+            await logout();
+            showNotification("success", "ログアウトしました");
+            navigate("/");
+        } catch (error) {
+            showNotification("error", getErrorMessage(error));
         }
     };
 
@@ -100,6 +111,17 @@ function Account() {
                         {loading ? "更新中..." : <><UserCog className='icon-in-btn' />更新</>}
                     </button>
                 </form>
+
+                <div className="form-card">
+                    <h3>ログアウト</h3>
+                    <button
+                        type="button"
+                        className='btn'
+                        onClick={fetchLogout}
+                    >
+                        <LogOut className='icon-in-btn' />ログアウト
+                    </button>
+                </div>
 
                 <div className="form-card danger-zone">
                     <h3><TriangleAlert className='icon-in-btn' />危険な操作</h3>
