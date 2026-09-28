@@ -6,7 +6,7 @@ import TitleIcon from '../img/TitleIcon.svg';
 import { useNotification } from '../context/useNotification';
 import { getErrorMessage } from '../utils/error.ts';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, House, Refrigerator, Search, ClipboardList, CookingPot, ShoppingCart, User } from 'lucide-react';
+import { LogOut, House, Refrigerator, Search, Apple, CookingPot, ShoppingCart, User } from 'lucide-react';
 
 function Layout() {
     const { showNotification } = useNotification();
@@ -44,7 +44,7 @@ function Layout() {
                             <span>検索</span>
                         </NavLink>
                         <NavLink to="/list_ing" className={({ isActive }) => isActive ? "active" : ""}>
-                            <ClipboardList className='nav-icon' />
+                            <Apple className='nav-icon' />
                             <span>材料</span>
                         </NavLink>
                         <NavLink to="/list_dish" className={({ isActive }) => isActive ? "active" : ""}>
