@@ -30,7 +30,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Home.png" height="350px"></td>
-<td><img src="./docs/Home_mb.png" height="350px"></td>
+<td><img src="./docs/Home_mb.png" height="500px"></td>
 </tr>
 </table>
 
@@ -45,7 +45,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Refrigerator.png" height="350px"></td>
-<td><img src="./docs/Refrigerator_mb.png" height="350px"></td>
+<td><img src="./docs/Refrigerator_mb.png" height="500px"></td>
 </tr>
 </table>
 
@@ -60,7 +60,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Search.png" height="350px"></td>
-<td><img src="./docs/Search_mb.png" height="350px"></td>
+<td><img src="./docs/Search_mb.png" height="500px"></td>
 </tr>
 </table>
 
@@ -75,7 +75,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Listing.png" height="350px"></td>
-<td><img src="./docs/Listing_mb.png" height="350px"></td>
+<td><img src="./docs/Listing_mb.png" height="500px"></td>
 </tr>
 </table>
 
@@ -90,7 +90,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Listdish.png" height="350px"></td>
-<td><img src="./docs/Listdish_mb.png" height="350px"></td>
+<td><img src="./docs/Listdish_mb.png" height="500px"></td>
 </tr>
 </table>
 
@@ -105,7 +105,7 @@
 </tr>
 <tr>
 <td><img src="./docs/Shoppinglist.png" height="350px"></td>
-<td><img src="./docs/Shoppinglist_mb.png" height="350px"></td>
+<td><img src="./docs/Shoppinglist_mb.png" height="500px"></td>
 </tr>
 </table>
 
