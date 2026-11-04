@@ -7,7 +7,7 @@ function Layout2() {
 
     return (
         <div className="app-shell">
-            <header>
+            <header className="auth-header">
                 <h1>
                     <img src={TitleIcon} alt="Title Icon" className='title-icon' />
                 </h1>

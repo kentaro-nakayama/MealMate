@@ -1323,9 +1323,18 @@ nav a.active::after {
         border-radius: 0;
     }
 
-    h1,
+    .header-row h1,
     .header-actions {
         display: none;
+    }
+
+    /* ログイン・サインアップ画面はタブバーがないためタイトルヘッダーを残す */
+    .auth-header {
+        padding: 20px 12px 0;
+    }
+
+    .auth-header .title-icon {
+        width: 200px;
     }
 
     nav {
