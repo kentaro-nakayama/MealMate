@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1222" viewBox="0 0 1240 1222" font-family="'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo','Noto Sans JP',system-ui,-apple-system,'Segoe UI',sans-serif">
+<defs>
+<marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#5fd38d"/></marker>
+<marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#6aa9f4"/></marker>
+<marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f0b74e"/></marker>
+<marker id="ah-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#b48bf2"/></marker>
+<marker id="ah-rose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f2788f"/></marker>
+<marker id="ah-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#4fd1c5"/></marker>
+<marker id="ah-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#93a1b1"/></marker>
+<marker id="ah-faint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#6b7a8c"/></marker>
+<marker id="ah-text" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#e8eef5"/></marker>
+</defs>
+<rect x="0" y="0" width="1240" height="1222" fill="#0e1116"/>
+<rect x="44" y="34" width="5" height="46" rx="2.5" fill="#5fd38d"/>
+<text x="62" y="58" font-size="25" font-weight="700" fill="#e8eef5">MealMate — コア機能の処理フロー</text>
+<text x="62" y="82" font-size="13.5" fill="#93a1b1">Lv.5  「冷蔵庫の材料で作れる料理を一致率順に提案する」までの流れ</text>
+<rect x="39.0" y="136" width="222" height="58" rx="10" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<rect x="39.0" y="136" width="222" height="4" rx="2" fill="#4fd1c5"/>
+<text x="150" y="165" font-size="14.5" font-weight="700" text-anchor="middle" fill="#e8eef5">ユーザー</text>
+<text x="150" y="183" font-size="10.5" text-anchor="middle" fill="#4fd1c5">ブラウザ</text>
+<line x1="150" y1="194" x2="150" y2="1034" stroke="#2c3542" stroke-width="1.4" stroke-dasharray="5 6"/>
+<rect x="369.0" y="136" width="222" height="58" rx="10" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<rect x="369.0" y="136" width="222" height="4" rx="2" fill="#5fd38d"/>
+<text x="480" y="165" font-size="14.5" font-weight="700" text-anchor="middle" fill="#e8eef5">React</text>
+<text x="480" y="183" font-size="10.5" text-anchor="middle" fill="#5fd38d">Home / Search / Result</text>
+<line x1="480" y1="194" x2="480" y2="1034" stroke="#2c3542" stroke-width="1.4" stroke-dasharray="5 6"/>
+<rect x="709.0" y="136" width="222" height="58" rx="10" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<rect x="709.0" y="136" width="222" height="4" rx="2" fill="#f0b74e"/>
+<text x="820" y="165" font-size="14.5" font-weight="700" text-anchor="middle" fill="#e8eef5">Flask API</text>
+<text x="820" y="183" font-size="10.5" text-anchor="middle" fill="#f0b74e">backend/main.py</text>
+<line x1="820" y1="194" x2="820" y2="1034" stroke="#2c3542" stroke-width="1.4" stroke-dasharray="5 6"/>
+<rect x="1009.0" y="136" width="222" height="58" rx="10" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<rect x="1009.0" y="136" width="222" height="4" rx="2" fill="#b48bf2"/>
+<text x="1120" y="165" font-size="14.5" font-weight="700" text-anchor="middle" fill="#e8eef5">PostgreSQL</text>
+<text x="1120" y="183" font-size="10.5" text-anchor="middle" fill="#b48bf2">Neon</text>
+<line x1="1120" y1="194" x2="1120" y2="1034" stroke="#2c3542" stroke-width="1.4" stroke-dasharray="5 6"/>
+<path d="M 150 236 L 474 236" fill="none" stroke="#4fd1c5" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-teal)"/>
+<circle cx="158" cy="210" r="9.5" fill="#4fd1c5" fill-opacity="0.16" stroke="#4fd1c5" stroke-opacity="0.5"/>
+<text x="158" y="213.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#4fd1c5">1</text>
+<text x="315.0" y="227" font-size="12" text-anchor="middle" fill="#e8eef5">ホームを開く / 検索で材料を選ぶ</text>
+<path d="M 480 286 L 814 286" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<circle cx="488" cy="260" r="9.5" fill="#5fd38d" fill-opacity="0.16" stroke="#5fd38d" stroke-opacity="0.5"/>
+<text x="488" y="263.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#5fd38d">2</text>
+<text x="650.0" y="277" font-size="12" text-anchor="middle" fill="#e8eef5">冷蔵庫の材料を取得</text>
+<text x="650.0" y="302" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#93a1b1">GET /api/ref</text>
+<path d="M 820 334 L 1114 334" fill="none" stroke="#f0b74e" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-amber)"/>
+<circle cx="828" cy="308" r="9.5" fill="#f0b74e" fill-opacity="0.16" stroke="#f0b74e" stroke-opacity="0.5"/>
+<text x="828" y="311.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#f0b74e">3</text>
+<text x="970.0" y="325" font-size="12" text-anchor="middle" fill="#e8eef5">SELECT refrigerator JOIN ingredient</text>
+<path d="M 1120 376 L 826 376" fill="none" stroke="#b48bf2" stroke-width="1.6" stroke-dasharray="5 4" stroke-linejoin="round" marker-end="url(#ah-violet)"/>
+<text x="970.0" y="367" font-size="12" text-anchor="middle" fill="#e8eef5">材料・追加日</text>
+<path d="M 820 418 L 486 418" fill="none" stroke="#f0b74e" stroke-width="1.6" stroke-dasharray="5 4" stroke-linejoin="round" marker-end="url(#ah-amber)"/>
+<text x="650.0" y="409" font-size="12" text-anchor="middle" fill="#e8eef5">ings_in_ref_list_json</text>
+<path d="M 480 470 L 814 470" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<circle cx="488" cy="444" r="9.5" fill="#5fd38d" fill-opacity="0.16" stroke="#5fd38d" stroke-opacity="0.5"/>
+<text x="488" y="447.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#5fd38d">4</text>
+<text x="650.0" y="461" font-size="12" text-anchor="middle" fill="#e8eef5">材料 ID の配列を送って料理を検索</text>
+<text x="650.0" y="486" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#93a1b1">POST /api/searchDish  { searched_ing_id_list }</text>
+<path d="M 820 526 L 1114 526" fill="none" stroke="#f0b74e" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-amber)"/>
+<circle cx="828" cy="500" r="9.5" fill="#f0b74e" fill-opacity="0.16" stroke="#f0b74e" stroke-opacity="0.5"/>
+<text x="828" y="503.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#f0b74e">5</text>
+<text x="970.0" y="517" font-size="12" text-anchor="middle" fill="#e8eef5">SELECT dish / ing_dish_set</text>
+<rect x="648" y="552" width="400" height="135" rx="9" fill="#1c242e" stroke="#f0b74e" stroke-opacity="0.45" stroke-width="1.2"/>
+<text x="664" y="574" font-size="12" font-weight="700" text-anchor="start" fill="#f0b74e">バックエンドの集計</text>
+<text x="664" y="596" font-size="11.5" text-anchor="start" fill="#93a1b1">料理ごとに必要材料と手持ちを突き合わせ、</text>
+<text x="664" y="615" font-size="11.5" text-anchor="start" fill="#93a1b1">・一致数 match_score を数える</text>
+<text x="664" y="634" font-size="11.5" text-anchor="start" fill="#93a1b1">・不足材料 lack（ID と名前）を集める</text>
+<text x="664" y="653" font-size="11.5" text-anchor="start" fill="#93a1b1">・一致率 = round(一致数 ÷ 必要数 × 100)</text>
+<text x="664" y="672" font-size="11.5" text-anchor="start" fill="#93a1b1">最後に一致数の降順でソートする</text>
+<path d="M 820 717 L 486 717" fill="none" stroke="#f0b74e" stroke-width="1.6" stroke-dasharray="5 4" stroke-linejoin="round" marker-end="url(#ah-amber)"/>
+<text x="650.0" y="708" font-size="12" text-anchor="middle" fill="#e8eef5">result_list を返す</text>
+<text x="650.0" y="733" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#93a1b1">[料理名, 一致数, 不足数, 不足材料名, 不足材料ID, 一致率]</text>
+<rect x="312" y="745" width="400" height="97" rx="9" fill="#1c242e" stroke="#5fd38d" stroke-opacity="0.45" stroke-width="1.2"/>
+<text x="328" y="767" font-size="12" font-weight="700" text-anchor="start" fill="#5fd38d">フロントエンドの表示</text>
+<text x="328" y="789" font-size="11.5" text-anchor="start" fill="#93a1b1">・一致率の降順で並べ替える</text>
+<text x="328" y="808" font-size="11.5" text-anchor="start" fill="#93a1b1">・70% 以上 緑 / 40% 以上 オレンジ / それ未満 茶</text>
+<text x="328" y="827" font-size="11.5" text-anchor="start" fill="#93a1b1">・バッジと帯グラフ（幅 = 一致率）で描画</text>
+<path d="M 480 872 L 156 872" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-dasharray="5 4" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<text x="315.0" y="863" font-size="12" text-anchor="middle" fill="#e8eef5">一致率順の料理カードを表示</text>
+<path d="M 150 918 L 474 918" fill="none" stroke="#4fd1c5" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-teal)"/>
+<circle cx="158" cy="892" r="9.5" fill="#4fd1c5" fill-opacity="0.16" stroke="#4fd1c5" stroke-opacity="0.5"/>
+<text x="158" y="895.5" font-size="10.5" font-weight="700" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#4fd1c5">6</text>
+<text x="315.0" y="909" font-size="12" text-anchor="middle" fill="#e8eef5">不足材料を買い物リストへ</text>
+<path d="M 480 968 L 814 968" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<text x="650.0" y="959" font-size="12" text-anchor="middle" fill="#e8eef5">不足材料をまとめて追加</text>
+<text x="650.0" y="984" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="middle" fill="#93a1b1">POST /api/addLackIngToShoppingList</text>
+<path d="M 820 1018 L 1114 1018" fill="none" stroke="#f0b74e" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-amber)"/>
+<text x="970.0" y="1009" font-size="12" text-anchor="middle" fill="#e8eef5">INSERT shopping_list（重複はスキップ）</text>
+<rect x="44" y="1066" width="1156" height="124" rx="12" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<rect x="44" y="1066" width="1156" height="4" rx="2" fill="#6aa9f4"/>
+<text x="64" y="1096" font-size="14" font-weight="700" text-anchor="start" fill="#e8eef5">一致率と関連ロジック</text>
+<text x="64" y="1122" font-size="11.5" font-weight="700" text-anchor="start" fill="#6aa9f4">一致率</text>
+<text x="148" y="1122" font-size="11.5" text-anchor="start" fill="#93a1b1">round(一致した材料数 ÷ 料理に必要な材料数 × 100)　例）必要 5 個のうち 4 個あれば 80%（不足 1 個）</text>
+<text x="64" y="1144" font-size="11.5" font-weight="700" text-anchor="start" fill="#6aa9f4">並び順</text>
+<text x="148" y="1144" font-size="11.5" text-anchor="start" fill="#93a1b1">バックエンドは一致数の降順、フロントは一致率の降順で再ソートして表示する</text>
+<text x="64" y="1166" font-size="11.5" font-weight="700" text-anchor="start" fill="#6aa9f4">賞味期限</text>
+<text x="148" y="1166" font-size="11.5" text-anchor="start" fill="#93a1b1">ホームのサマリーでは、冷蔵庫に追加してから 7 日を超えた材料を「賞味期限が近い材料」として数える</text>
+</svg>

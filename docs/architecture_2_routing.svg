@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="900" viewBox="0 0 1240 900" font-family="'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo','Noto Sans JP',system-ui,-apple-system,'Segoe UI',sans-serif">
+<defs>
+<marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#5fd38d"/></marker>
+<marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#6aa9f4"/></marker>
+<marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f0b74e"/></marker>
+<marker id="ah-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#b48bf2"/></marker>
+<marker id="ah-rose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f2788f"/></marker>
+<marker id="ah-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#4fd1c5"/></marker>
+<marker id="ah-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#93a1b1"/></marker>
+<marker id="ah-faint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#6b7a8c"/></marker>
+<marker id="ah-text" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#e8eef5"/></marker>
+</defs>
+<rect x="0" y="0" width="1240" height="900" fill="#0e1116"/>
+<rect x="44" y="34" width="5" height="46" rx="2.5" fill="#6aa9f4"/>
+<text x="62" y="58" font-size="25" font-weight="700" fill="#e8eef5">MealMate — 画面・ルーティング構成図</text>
+<text x="62" y="82" font-size="13.5" fill="#93a1b1">Lv.2  react-router-dom の 14 ルートと認証ガード</text>
+<rect x="44" y="150" width="250" height="300" rx="14" fill="none" stroke="#3a4654" stroke-width="1.4" stroke-dasharray="7 6"/>
+<text x="64" y="174" font-size="13" font-weight="600" fill="#f2788f" letter-spacing="0.4">Layout2（未認証）</text>
+<rect x="68" y="196" width="202" height="104" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 79 196 L 259 196 A 11 11 0 0 1 270 207 L 270 200 A 4 4 0 0 0 266 196 Z" fill="none"/>
+<rect x="68" y="196" width="202" height="4" rx="2" fill="#f2788f"/>
+<text x="84" y="225" font-size="15" font-weight="700" fill="#e8eef5">ログイン</text>
+<text x="84" y="243" font-size="11" fill="#f2788f" letter-spacing="0.3">/</text>
+<text x="84" y="267" font-size="11" fill="#93a1b1">AuthForm</text>
+<text x="84" y="284" font-size="11" fill="#93a1b1">POST /api/login</text>
+<rect x="68" y="324" width="202" height="104" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 79 324 L 259 324 A 11 11 0 0 1 270 335 L 270 328 A 4 4 0 0 0 266 324 Z" fill="none"/>
+<rect x="68" y="324" width="202" height="4" rx="2" fill="#f2788f"/>
+<text x="84" y="353" font-size="15" font-weight="700" fill="#e8eef5">サインアップ</text>
+<text x="84" y="371" font-size="11" fill="#f2788f" letter-spacing="0.3">/signup</text>
+<text x="84" y="395" font-size="11" fill="#93a1b1">AuthForm</text>
+<text x="84" y="412" font-size="11" fill="#93a1b1">POST /api/signup</text>
+<path d="M 68 248 L 56 248 L 56 376 L 68 376" fill="none" stroke="#6b7a8c" stroke-width="1.3" stroke-linejoin="round" marker-end="url(#ah-faint)" marker-start="url(#ah-faint)"/>
+<text x="44" y="580" font-size="11.5" text-anchor="start" fill="#6b7a8c">※ ログイン ⇄ サインアップ は画面下部のリンクで相互に遷移できる</text>
+<rect x="360" y="220" width="206" height="160" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 371 220 L 555 220 A 11 11 0 0 1 566 231 L 566 224 A 4 4 0 0 0 562 220 Z" fill="none"/>
+<rect x="360" y="220" width="206" height="4" rx="2" fill="#f0b74e"/>
+<text x="376" y="249" font-size="15" font-weight="700" fill="#e8eef5">ProtectedRoute</text>
+<text x="376" y="273.0" font-size="11.5" fill="#93a1b1">マウント時に</text>
+<text x="376" y="290.5" font-size="11.5" fill="#93a1b1">GET /api/isLoggedIn</text>
+<text x="376" y="308.0" font-size="11.5" fill="#93a1b1"></text>
+<text x="376" y="325.5" font-size="11.5" fill="#93a1b1">true  → &lt;Outlet /&gt;</text>
+<text x="376" y="343.0" font-size="11.5" fill="#93a1b1">false → 「/」へ Navigate</text>
+<text x="376" y="360.5" font-size="11.5" fill="#93a1b1">判定中は Spinner</text>
+<path d="M 272 240 L 356 240" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<text x="314" y="230" font-size="10.5" text-anchor="middle" fill="#93a1b1">ログイン成功</text>
+<path d="M 440 384 L 440 512 L 169 512 L 169 456" fill="none" stroke="#f2788f" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-rose)"/>
+<text x="330" y="534" font-size="11" text-anchor="middle" fill="#f2788f">未ログインなら「/」へ差し戻し</text>
+<path d="M 570 300 L 588 300" fill="none" stroke="#5fd38d" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ah-green)"/>
+<rect x="594" y="150" width="606" height="640" rx="14" fill="none" stroke="#3a4654" stroke-width="1.4" stroke-dasharray="7 6"/>
+<text x="614" y="174" font-size="13" font-weight="600" fill="#5fd38d" letter-spacing="0.4">Layout（認証済み・共通ヘッダー ＋ ナビ 7 タブ）</text>
+<rect x="618" y="196" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 629 196 L 879 196 A 11 11 0 0 1 890 207 L 890 200 A 4 4 0 0 0 886 196 Z" fill="none"/>
+<rect x="618" y="196" width="272" height="4" rx="2" fill="#5fd38d"/>
+<text x="634" y="225" font-size="14" font-weight="700" fill="#e8eef5">ホーム</text>
+<text x="634" y="243" font-size="11" fill="#5fd38d" letter-spacing="0.3">/home</text>
+<text x="634" y="267.0" font-size="10.8" fill="#93a1b1">作れる料理を一致率順に提案 ＋ サマリー</text>
+<rect x="908" y="196" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 919 196 L 1169 196 A 11 11 0 0 1 1180 207 L 1180 200 A 4 4 0 0 0 1176 196 Z" fill="none"/>
+<rect x="908" y="196" width="272" height="4" rx="2" fill="#5fd38d"/>
+<text x="924" y="225" font-size="14" font-weight="700" fill="#e8eef5">冷蔵庫</text>
+<text x="924" y="243" font-size="11" fill="#5fd38d" letter-spacing="0.3">/refrigerator</text>
+<text x="924" y="267.0" font-size="10.8" fill="#93a1b1">材料の追加・削除・追加日の管理</text>
+<rect x="618" y="292" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 629 292 L 879 292 A 11 11 0 0 1 890 303 L 890 296 A 4 4 0 0 0 886 292 Z" fill="none"/>
+<rect x="618" y="292" width="272" height="4" rx="2" fill="#6aa9f4"/>
+<text x="634" y="321" font-size="14" font-weight="700" fill="#e8eef5">検索</text>
+<text x="634" y="339" font-size="11" fill="#6aa9f4" letter-spacing="0.3">/search</text>
+<text x="634" y="363.0" font-size="10.8" fill="#93a1b1">材料を自由に選んで料理を検索</text>
+<rect x="908" y="292" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 919 292 L 1169 292 A 11 11 0 0 1 1180 303 L 1180 296 A 4 4 0 0 0 1176 292 Z" fill="none"/>
+<rect x="908" y="292" width="272" height="4" rx="2" fill="#6aa9f4"/>
+<text x="924" y="321" font-size="14" font-weight="700" fill="#e8eef5">検索結果</text>
+<text x="924" y="339" font-size="11" fill="#6aa9f4" letter-spacing="0.3">/result</text>
+<text x="924" y="363.0" font-size="10.8" fill="#93a1b1">一致率順の結果・不足材料をリストへ</text>
+<rect x="618" y="388" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 629 388 L 879 388 A 11 11 0 0 1 890 399 L 890 392 A 4 4 0 0 0 886 388 Z" fill="none"/>
+<rect x="618" y="388" width="272" height="4" rx="2" fill="#4fd1c5"/>
+<text x="634" y="417" font-size="14" font-weight="700" fill="#e8eef5">材料一覧</text>
+<text x="634" y="435" font-size="11" fill="#4fd1c5" letter-spacing="0.3">/list_ing</text>
+<text x="634" y="459.0" font-size="10.8" fill="#93a1b1">カテゴリー別に全材料を表示</text>
+<rect x="908" y="388" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 919 388 L 1169 388 A 11 11 0 0 1 1180 399 L 1180 392 A 4 4 0 0 0 1176 388 Z" fill="none"/>
+<rect x="908" y="388" width="272" height="4" rx="2" fill="#b48bf2"/>
+<text x="924" y="417" font-size="14" font-weight="700" fill="#e8eef5">料理一覧</text>
+<text x="924" y="435" font-size="11" fill="#b48bf2" letter-spacing="0.3">/list_dish</text>
+<text x="924" y="459.0" font-size="10.8" fill="#93a1b1">全料理を表示・編集へ遷移</text>
+<rect x="618" y="484" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 629 484 L 879 484 A 11 11 0 0 1 890 495 L 890 488 A 4 4 0 0 0 886 484 Z" fill="none"/>
+<rect x="618" y="484" width="272" height="4" rx="2" fill="#f0b74e"/>
+<text x="634" y="513" font-size="14" font-weight="700" fill="#e8eef5">買い物リスト</text>
+<text x="634" y="531" font-size="11" fill="#f0b74e" letter-spacing="0.3">/shopping</text>
+<text x="634" y="555.0" font-size="10.8" fill="#93a1b1">追加・チェックして一括で購入済みに</text>
+<rect x="908" y="484" width="272" height="80" rx="11" fill="#151b23" stroke="#2c3542" stroke-width="1.2"/>
+<path d="M 919 484 L 1169 484 A 11 11 0 0 1 1180 495 L 1180 488 A 4 4 0 0 0 1176 484 Z" fill="none"/>
+<rect x="908" y="484" width="272" height="4" rx="2" fill="#f2788f"/>
+<text x="924" y="513" font-size="14" font-weight="700" fill="#e8eef5">アカウント</text>
+<text x="924" y="531" font-size="11" fill="#f2788f" letter-spacing="0.3">/account</text>
+<text x="924" y="555.0" font-size="10.8" fill="#93a1b1">ユーザー情報の編集・ログアウト・退会</text>
+<path d="M 648 372 L 648 384" fill="none" stroke="#6aa9f4" stroke-width="1.4" stroke-linejoin="round" marker-end="url(#ah-blue)"/>
+<text x="660" y="383" font-size="10" text-anchor="start" fill="#6aa9f4">navigate(state) で結果を受け渡し</text>
+<rect x="618" y="596" width="562" height="170" rx="14" fill="none" stroke="#3a4654" stroke-width="1.4" stroke-dasharray="7 6"/>
+<text x="638" y="620" font-size="13" font-weight="600" fill="#b48bf2" letter-spacing="0.4">子ルート（一覧画面から遷移）</text>
+<rect x="640" y="636" width="246" height="50" rx="8" fill="#1c242e" stroke="#2c3542"/>
+<rect x="640" y="636" width="3.5" height="50" rx="1.75" fill="#4fd1c5"/>
+<text x="654" y="656" font-size="12.5" font-weight="700" text-anchor="start" fill="#e8eef5">材料を追加</text>
+<text x="654" y="674" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="start" fill="#4fd1c5">/list_ing/add</text>
+<rect x="640" y="700" width="246" height="50" rx="8" fill="#1c242e" stroke="#2c3542"/>
+<rect x="640" y="700" width="3.5" height="50" rx="1.75" fill="#4fd1c5"/>
+<text x="654" y="720" font-size="12.5" font-weight="700" text-anchor="start" fill="#e8eef5">材料を編集</text>
+<text x="654" y="738" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="start" fill="#4fd1c5">/list_ing/edit/:ing_id</text>
+<rect x="912" y="636" width="246" height="50" rx="8" fill="#1c242e" stroke="#2c3542"/>
+<rect x="912" y="636" width="3.5" height="50" rx="1.75" fill="#b48bf2"/>
+<text x="926" y="656" font-size="12.5" font-weight="700" text-anchor="start" fill="#e8eef5">料理を追加</text>
+<text x="926" y="674" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="start" fill="#b48bf2">/list_dish/add</text>
+<rect x="912" y="700" width="246" height="50" rx="8" fill="#1c242e" stroke="#2c3542"/>
+<rect x="912" y="700" width="3.5" height="50" rx="1.75" fill="#b48bf2"/>
+<text x="926" y="720" font-size="12.5" font-weight="700" text-anchor="start" fill="#e8eef5">料理を編集</text>
+<text x="926" y="738" font-size="10.5" font-family="'SFMono-Regular','Menlo','Consolas','Liberation Mono',monospace" text-anchor="start" fill="#b48bf2">/list_dish/edit/:dish_id</text>
+<path d="M 700 564 L 700 590" fill="none" stroke="#4fd1c5" stroke-width="1.3" stroke-dasharray="4 3" stroke-linejoin="round" marker-end="url(#ah-teal)"/>
+<path d="M 1000 564 L 1000 590" fill="none" stroke="#b48bf2" stroke-width="1.3" stroke-dasharray="4 3" stroke-linejoin="round" marker-end="url(#ah-violet)"/>
+<text x="44" y="822" font-size="13" font-weight="700" text-anchor="start" fill="#e8eef5">共通コンポーネント</text>
+<text x="44" y="846" font-size="11.5" text-anchor="start" fill="#93a1b1">Layout / Layout2 ・ ProtectedRoute ・ AuthForm ・ CategoryChips ・ RefCard ・ ShoppingCard ・ IngCardCheckboxType ・ CategorySectionHeader ・ Input / Select ・ Message ・ LoadingSpinner</text>
+<text x="44" y="870" font-size="11.5" text-anchor="start" fill="#6b7a8c">全画面を NotificationProvider（React Context）で包み、API のエラー・成功メッセージをトースト表示する</text>
+</svg>

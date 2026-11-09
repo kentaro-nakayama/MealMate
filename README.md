@@ -121,6 +121,40 @@
 - フロントエンド: `frontend/`（Viteを自動検出）
 - バックエンドAPI: `backend/`（Flaskアプリを`main:app`としてサービス化，`/api/*` にルーティング）
 
+## 構成図
+
+アプリの全体像を，詳細レベル別に5枚の図にまとめた。
+
+### Lv.1 システム構成図
+
+デプロイ構成とリクエストの流れ。Vercel Services でフロントエンドとバックエンドを1プロジェクトにまとめ，`/api/*` だけをFlask側へ振り分けている。
+
+<img src="./docs/architecture_1_system.svg" width="100%" alt="システム構成図">
+
+### Lv.2 画面・ルーティング構成図
+
+react-router-dom の14ルートと認証ガード。`ProtectedRoute` がログイン状態を判定し，未ログインならログイン画面へ差し戻す。
+
+<img src="./docs/architecture_2_routing.svg" width="100%" alt="画面・ルーティング構成図">
+
+### Lv.3 データモデル（ER図）
+
+PostgreSQLの7テーブル。材料・料理・カテゴリーは全ユーザー共通のマスタ，冷蔵庫と買い物リストはユーザーごとのデータとして分けている。
+
+<img src="./docs/architecture_3_er.svg" width="100%" alt="データモデル（ER図）">
+
+### Lv.4 機能別APIマップ
+
+6つの機能グループと24エンドポイント，それぞれを呼び出す画面の対応。
+
+<img src="./docs/architecture_4_api.svg" width="100%" alt="機能別APIマップ">
+
+### Lv.5 コア機能の処理フロー
+
+「冷蔵庫の材料で作れる料理を一致率順に提案する」処理の流れと，一致率の算出ロジック。
+
+<img src="./docs/architecture_5_flow.svg" width="100%" alt="コア機能の処理フロー">
+
 ## セットアップ
 
 ### 前提条件
